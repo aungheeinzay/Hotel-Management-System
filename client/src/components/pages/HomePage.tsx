@@ -6,14 +6,36 @@ import IsAuthenticated from "@/components/common/IsAuthenticated.tsx";
 import type {Room} from "@/lib/type.ts";
 
 import FilterCard from "@/components/common/homeComponent/FilterCard.tsx";
-import {useSearchParams} from "react-router";
+import {Link, useSearchParams} from "react-router";
 import {useDebounce} from "@/hooks/useDebounce.ts";
+import {useMemo} from "react";
+import Pagination from "@/components/common/homeComponent/Pagination.tsx";
+import {Button} from "@/components/ui/button.tsx";
 
 
 function Page(){
     const [searchParams] = useSearchParams()
-    const filterValue = searchParams.get("filter") || ""
-    const [debounceValue] = useDebounce(filterValue)
+    const query = searchParams.get("filter")
+    const location = searchParams.get("location")
+    const type = searchParams.get("type")
+    const capacity = Number(searchParams.get("capacity"))
+    const page =  searchParams.get("page") || "1";
+    const perPage = searchParams.get("perPage") || "5";
+    const paramsValue = useMemo(() => {
+        return {
+            query,
+            page,
+            perPage,
+            filters: {
+                capacity,
+                location,
+                type
+            }
+        };
+    }, [query, capacity, location, type,page,perPage]); // prevent infinate loop because of obj reference is always changes thus i use memo
+
+    const [debounceValue] = useDebounce(paramsValue)
+    console.log("debounceValue",debounceValue)
     const {data:metaInfo,loading:metaInfoLoading} =useQuery<{
         filterMetaInfo:{
             Location:string[]
@@ -21,15 +43,11 @@ function Page(){
             Type:string[]
         }
     }>(GET_META_INFO)
-    const {data,loading} = useQuery<{getAllRooms:{
+    const {data,loading,error} = useQuery<{getAllRooms:{
         rooms:Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title">[]
             totalRooms   :number
     }}>(GET_ALL_ROOMS,{
-        variables:{
-            page:"1",
-            perPage:"5",
-            query:debounceValue
-        }
+        variables:debounceValue
     })
     console.log("metaInfo",metaInfo)
     return <main className={"layout grid grid-cols-8 gap-4"}>
@@ -47,8 +65,18 @@ function Page(){
         </section>
         <section className={"col-span-6"}>
             <IsLoading isLoading={loading}>
-                <RoomList rooms={data?.getAllRooms.rooms || []}/>
+                {
+                    error ? <div>
+                            <p>no room found</p>
+                       <Button asChild>
+                           <Link to={"/"} >back</Link>
+                       </Button>
+                        </div>:
+                        <RoomList rooms={data?.getAllRooms.rooms || []}/>
+                }
             </IsLoading>
+            {   data?.getAllRooms.totalRooms &&
+                <Pagination totalDoc={data.getAllRooms.totalRooms}/>}
         </section>
     </main>
 }

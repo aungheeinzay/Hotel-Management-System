@@ -34,11 +34,15 @@ export default class ApiFilters{
                   }
                   formattedObj[key] = opreatorObj
                 }
-            }else {
+            }
+                else {
                 formattedObj[key] = value
             }
+                if (!(!!value)){
+                    Reflect.deleteProperty(formattedObj,key)
+                }
         }
-
+        console.log("formattedObj",formattedObj)
         // const toString = JSON.stringify(filter)
         // const refactorStr = toString.replace(/\b(gt|gte|lt|lte)\b/g,(match)=>`$${match}`)
         // console.log("refactor str:",refactorStr)

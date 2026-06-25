@@ -8,7 +8,6 @@ import ApiFilters from "../lib/apiFilters";
 export const getAllRooms=errorHandler(async (query:string,filters:RoomFilters,page:string | number , perPage:string | number)=>{
    const apiFilter = new ApiFilters(Room).search(query).filter(filters)
 
-
     const totalRooms = await apiFilter.count();
    const rooms = await apiFilter.pagination(page,perPage).model
     if (rooms.length==0){
