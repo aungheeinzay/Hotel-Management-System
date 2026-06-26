@@ -17,8 +17,9 @@ import {
 const ReactPaginate = ReactPaginateModule.default || ReactPaginateModule;
 
 export default function Pagination({ totalDoc }: { totalDoc: number }) {
-    const [perPage, setPerPage] = useState("5");
     const [searchParams, setSearchParams] = useSearchParams();
+    const [perPage, setPerPage] = useState(searchParams.get("perPage") || "5");
+
 
 
     const currentPage = Number(searchParams.get("page") || 1);

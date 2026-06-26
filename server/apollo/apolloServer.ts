@@ -11,6 +11,8 @@ import {applyMiddleware} from "graphql-middleware";
 import {permession} from "../lib/permession";
 import {decodedToken} from "../lib/jwt";
 import {User} from "../model/user";
+import {bookingTypeDefs} from "../graphql/typeDefs/booking";
+import {bookingResolvers} from "../graphql/resolvers/booking";
 type JWTPayload = {
     id:string
 }
@@ -18,8 +20,8 @@ type JWTPayload = {
 
 
 export const startApolloServer=async (app:Application)=>{
-    const typeDefs=[roomTypeDefs,userTypeDefs];
-    const resolvers=[roomResolver,userResolvers];
+    const typeDefs=[roomTypeDefs,userTypeDefs,bookingTypeDefs];
+    const resolvers=[roomResolver,userResolvers,bookingResolvers];
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers,

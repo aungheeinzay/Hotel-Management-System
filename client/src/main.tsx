@@ -17,6 +17,7 @@ import {DashboardPage} from "@/components/pages/DashBoardPage.tsx";
 import ProfilePage from "@/components/pages/ProfilePage.tsx";
 import {ForgetPasswordPage} from "@/components/pages/ForgetPasswordPage.tsx";
 import ResetPasswordPage from "@/components/pages/ResetPasswordPage.tsx";
+import BookingPage from "@/components/pages/BookingPage.tsx";
 
 
 
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path:"resetPassword/:token",
                 element:<ResetPasswordPage/>
+            },
+            {
+                path:"/bookings/:bookingId/payment",
+                element:<BookingPage/>
             }
         ]
     }

@@ -1,4 +1,5 @@
-import {Document} from "mongoose";
+import mongoose from "mongoose";
+
 
 export type ID={
     _id:string
@@ -49,3 +50,55 @@ export interface RoomFilters{
     location?:string
 }
 
+export const PaymentMethods=["Card","Cash"]
+export const PaymentStatus=["paid","pending"]
+export interface IBooking {
+    id:string,
+    user:mongoose.Schema.Types.ObjectId | string,
+    room:mongoose.Schema.Types.ObjectId | string,
+    startDate:Date
+    endDate:Date
+    customer:{
+        name:string
+        email:string
+    }
+    amount:{
+        rent:number
+        discount:number
+        tax:number
+        total:number
+    }
+    dayOfRent:number
+    rentPerDay:number,
+    // paymentInfo:{
+    //     id:string
+    //     status:string
+    //     method:string
+    // }
+    additionalNote?:string
+    createdAt:string,
+    updatedAt:string
+}
+export interface BookingInput {
+    room:string,
+    startDate:Date
+    endDate:Date
+    customer:{
+        name:string
+        email:string
+    }
+    amount:{
+        rent:number
+        discount:number
+        tax:number
+        total:number
+    }
+    dayOfRent:number
+    rentPerDay:number,
+    // paymentInfo:{
+    //     id:string
+    //     status:string
+    //     method:string
+    // }
+    additionalNote?:string
+}
