@@ -50,7 +50,7 @@ export interface RoomFilters{
     location?:string
 }
 
-export const PaymentMethods=["Card","Cash"]
+export const PaymentMethods=["card","cash"]
 export const PaymentStatus=["paid","pending"]
 export interface IBooking {
     id:string,
@@ -70,11 +70,11 @@ export interface IBooking {
     }
     dayOfRent:number
     rentPerDay:number,
-    // paymentInfo:{
-    //     id:string
-    //     status:string
-    //     method:string
-    // }
+    paymentInfo?:{
+        id:string
+        status:string
+        method:string
+    }
     additionalNote?:string
     createdAt:string,
     updatedAt:string
@@ -95,10 +95,10 @@ export interface BookingInput {
     }
     dayOfRent:number
     rentPerDay:number,
-    // paymentInfo:{
-    //     id:string
-    //     status:string
-    //     method:string
-    // }
+    paymentInfo?:{
+        id:string
+        status:string
+        method:string
+    }
     additionalNote?:string
 }

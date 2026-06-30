@@ -42,23 +42,20 @@ const bookingSchema = new Schema<IBooking>({
         type:Number,
         required:true
     },
-        // paymentInfo: {
-        //     id: {
-        //         type: String,
-        //         required: true
-        //     },
-        //     status: {
-        //         type: String,
-        //         enum: Object.values(PaymentStatus),
-        //         default: "pending",
-        //         required: true
-        //     },
-        //     method: {
-        //         type: String,
-        //         enum: Object.values(PaymentMethods),
-        //         required: true
-        //     }
-        //},
+        paymentInfo: {
+            id:String,
+            status: {
+                type: String,
+                enum:{values:PaymentStatus,message:'invalid payment status'},
+                default: "pending",
+                //required: true
+            },
+            method: {
+                type: String,
+                enum:{values:PaymentMethods,message:'invalid payment methods'},
+                //required: true
+            }
+        },
     additionalNote:String
 },{
     timestamps:true

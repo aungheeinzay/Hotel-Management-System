@@ -56,7 +56,7 @@ const schemaWithShields =  applyMiddleware(schema,permession)
             if (token){
                 try {
                 const decode =await decodedToken(token) as JWTPayload
-                  user =  await User.findById(decode.id)
+                  user =  await User.findById(decode.id).select("-password")
                     userId=user?.id
                 }catch (error){
                   //  throw new Error("invalid token")

@@ -49,3 +49,31 @@ export interface FilterCardProps{
     Capacity:number[]
     loading:boolean
 }
+
+export interface Booking {
+    id:string,
+    user: string,
+    room: string,
+    startDate:Date
+    endDate:Date
+    customer:{
+        name:string
+        email:string
+    }
+    amount:{
+        rent:number
+        discount:number
+        tax:number
+        total:number
+    }
+    dayOfRent:number
+    rentPerDay:number,
+    // paymentInfo:{
+    //     id:string
+    //     status:string
+    //     method:string
+    // }
+    additionalNote?:string
+    createdAt:string,
+    updatedAt:string
+}
