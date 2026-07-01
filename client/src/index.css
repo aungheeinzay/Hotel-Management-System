@@ -134,7 +134,9 @@
     .input-icon{
         @apply absolute left-2 top-1/2 -translate-y-1/2
     }
-
+    .grid_center{
+        @apply grid place-items-center;
+    }
   html {
     @apply font-sans;
     }

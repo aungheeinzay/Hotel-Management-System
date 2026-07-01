@@ -19,24 +19,26 @@ export const GET_ALL_ROOMS = gql`
 `
 
 export const Get_Room_By_Id = gql(`
-query GetSingleRoom($roomId: String!) {
-  getRoomById(roomId: $roomId) {
-    id
-    roomNumber
-    type
-    pricePerNight
-    location
-    capacity
-    title
-    description
-    isAvailable
-    images {
-      url
-      public_id
+  query GetRoomById($roomId: String!, $getBookedDaysRoomId2: String!) {
+    getRoomById(roomId: $roomId) {
+      id
+      roomNumber
+      type
+      pricePerNight
+      location
+      capacity
+      title
+      description
+      isAvailable
+      images {
+        url
+      }
+      reviews
+      createdAt
+      updatedAt
     }
-    reviews
+    getBookedDays(roomId: $getBookedDaysRoomId2)
   }
-}
 
 `)
 

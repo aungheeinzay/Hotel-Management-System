@@ -8,7 +8,7 @@ import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import type {FilterCardProps} from "@/lib/type.ts";
 import IsLoading from "@/components/common/Loading.tsx";
-import updateSearchParams from "@/components/common/homeComponent/updateSearchParams.ts";
+import updateSearchParams from "@/components/homeComponent/updateSearchParams.ts";
 import {Button} from "@/components/ui/button.tsx";
 
 

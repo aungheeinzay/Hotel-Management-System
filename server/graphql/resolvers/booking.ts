@@ -1,4 +1,10 @@
-import {createBooking, getBookingById, updateBookingPayment} from "../../controller/Booking";
+import {
+    createBooking,
+    getBookedDays,
+    getBookingById,
+    getBookingByUserId,
+    updateBookingPayment
+} from "../../controller/Booking";
 import type {BookingInput, UserType} from "../../lib/type";
 
 export const bookingResolvers={
@@ -8,6 +14,7 @@ export const bookingResolvers={
     },
     Query:{
         getBookingById:async(_:any,{bookingId}:{bookingId:string},{userId}:{userId:string})=>await getBookingById(bookingId,userId),
-
+        getBookedDays:async(_:any,{roomId}:{roomId:string})=>await getBookedDays(roomId),
+        getBookingByUserId:async(_:any,__:any,{userId}:{userId:string})=>await getBookingByUserId(userId)
     }
 }

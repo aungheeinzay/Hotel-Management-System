@@ -1,5 +1,5 @@
 import type {HomeRoom} from "@/lib/type.ts";
-import RoomCard from "@/components/common/homeComponent/RoomCard.tsx";
+import RoomCard from "@/components/homeComponent/RoomCard.tsx";
 
 
 export default function RoomList({rooms}:HomeRoom){

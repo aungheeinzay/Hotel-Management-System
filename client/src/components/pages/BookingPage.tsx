@@ -3,9 +3,9 @@ import {useNavigate, useParams} from "react-router";
 import {useQuery} from "@apollo/client/react";
 import {GET_BOOKING_BY_ID} from "@/graphql/queries/booking.ts";
 import type {Booking} from "@/lib/type.ts";
-import Summary from "@/components/common/bookinPageComponent/Summary.tsx";
+import Summary from "@/components/bookinPageComponent/Summary.tsx";
 import IsLoading from "@/components/common/Loading.tsx";
-import PayBy from "@/components/common/bookinPageComponent/PayBy.tsx";
+import PayBy from "@/components/bookinPageComponent/PayBy.tsx";
 import {toast} from "sonner";
 
 export default function BookingPage() {

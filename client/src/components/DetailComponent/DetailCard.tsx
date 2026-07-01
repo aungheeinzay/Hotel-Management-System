@@ -4,8 +4,8 @@ import {
     RiCloseCircleLine,
     RiExchangeDollarLine,
     RiHome9Line,
-    RiMapPinLine,
-    RiTeamLine
+    RiMapPinLine, RiPulseLine, RiRestaurantLine,
+    RiWifiLine, RiWindyLine
 } from "@remixicon/react";
 import {
     Carousel,
@@ -13,26 +13,31 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel.tsx"
 import {Card, CardContent, CardHeader} from "@/components/ui/card.tsx";
-import BookingForm from "@/components/common/DetailComponent/BookingForm.tsx";
+import BookingForm from "@/components/DetailComponent/BookingForm.tsx";
+import {Badge} from "@/components/ui/badge.tsx";
 
-export default function DetailCard({room}:{room:Room}) {
+export default function DetailCard({room,bookedDays}:{room:Room,bookedDays:string[]}) {
     const items = [
         {
-            icon:<RiTeamLine />,
-            label:"Capacity",
-            value:room.capacity
+            icon:<RiWifiLine size={16} />,
+            label:"Wifi",
+           // value:room.capacity
         },
         {
-            icon:<RiHome9Line/>,
-            label:"Type",
-            value:room.type
+            icon:<RiWindyLine size={16} />,
+            label:"A/C",
+           // value:room.type
         },
         {
-            icon:<RiMapPinLine />,
-            label:"Location",
-            value:room.location
+            icon:<RiRestaurantLine size={16} />,
+            label:"Breakfast",
+           // value:room.location
+        },
+        {
+            icon:<RiPulseLine size={16} />,
+            label:"Pool"
         }
     ]
     return (
@@ -53,9 +58,18 @@ export default function DetailCard({room}:{room:Room}) {
                 </Carousel>
 
                 {/*information*/}
-                <div className={"text-pretty"}>
-                    <div>
+                <div className={"text-pretty flex flex-col gap-4"}>
+                    <div className={"flex flex-col gap-4"}>
                         <h2 className={"text-2xl font-semibold"}>{room.title}</h2>
+                        <div className={"flex gap-4"}>
+                            <Badge variant={"outline"} className={"text-md"}>
+                                <RiHome9Line/>
+                                {room.type}
+                            </Badge>
+                            <Badge variant={"outline"} className={"text-md"}><RiMapPinLine /> {
+                                room.location
+                            }</Badge>
+                        </div>
                         <p className={"flex gap-4"}>#{room.roomNumber} {room.isAvailable ? <RiCheckboxCircleLine /> : <RiCloseCircleLine />}</p>
                         <p className={"flex gap-4 text-yellow-500"}><RiExchangeDollarLine />{room.pricePerNight}</p>
                         <p className={"font-sm opacity-50"}>{room.description}</p>
@@ -65,7 +79,7 @@ export default function DetailCard({room}:{room:Room}) {
                             items.map((itm,i)=>(
                                 <div className={"grid plcae-items-center gap-2 justify-items-center"} key={i}>
                                     <span> {itm.icon}</span>
-                                    <span>{itm.value}</span>
+                                    <span>{itm.label}</span>
                                 </div>
                             ))
                         }
@@ -81,7 +95,9 @@ export default function DetailCard({room}:{room:Room}) {
               <CardContent>
                   <BookingForm
                   rentPerDay={room.pricePerNight}
-                  roomId={room.id}/>
+                  roomId={room.id}
+                  disabledDates={bookedDays}
+                  isAvailable={room.isAvailable}/>
               </CardContent>
           </Card>
 

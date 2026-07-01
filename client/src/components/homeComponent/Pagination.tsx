@@ -2,8 +2,8 @@ import { useState } from "react";
 import ReactPaginateModule from "react-paginate";
 import { RiArrowLeftWideFill, RiArrowRightWideLine } from "@remixicon/react";
 import { useSearchParams } from "react-router";
-import updateSearchParams from "@/components/common/homeComponent/updateSearchParams.ts";
-import { Button } from "@/components/ui/button";
+import updateSearchParams from "@/components/homeComponent/updateSearchParams.ts";
+import { Button } from "@/components/ui/button.tsx";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu.tsx";
 
 // @ts-ignore
 const ReactPaginate = ReactPaginateModule.default || ReactPaginateModule;

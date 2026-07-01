@@ -1,7 +1,7 @@
 import IsAuthenticated from "@/components/common/IsAuthenticated.tsx";
-import AvatarUpload from "@/components/common/profileComponents/AvatarUpload.tsx";
-import UserNameEmailUpdate from "@/components/common/profileComponents/UserName&EmailUpdate.tsx";
-import UpdatePassword from "@/components/common/profileComponents/UpdatePassword.tsx";
+import AvatarUpload from "@/components/profileComponents/AvatarUpload.tsx";
+import UserNameEmailUpdate from "@/components/profileComponents/UserName&EmailUpdate.tsx";
+import UpdatePassword from "@/components/profileComponents/UpdatePassword.tsx";
 
 function Page(){
     return(

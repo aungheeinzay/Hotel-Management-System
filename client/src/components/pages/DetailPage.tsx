@@ -3,7 +3,7 @@ import {CombinedGraphQLErrors} from "@apollo/client/errors"
 import {Get_Room_By_Id} from "@/graphql/queries/room.ts";
 import {useParams} from "react-router";
 
-import DetailCard from "@/components/common/DetailComponent/DetailCard.tsx";
+import DetailCard from "@/components/DetailComponent/DetailCard.tsx";
 import type {Room} from "@/lib/type.ts";
 import IsLoading from "@/components/common/Loading.tsx";
 import NotFound from "@/components/common/NotFound.tsx";
@@ -12,12 +12,15 @@ import NotFound from "@/components/common/NotFound.tsx";
 
 export default function DetailPage(){
     const {id} =useParams()
-    const {data,loading,error} = useQuery(Get_Room_By_Id,{
+    const {data,loading,error} = useQuery<{
+        getRoomById:Room,
+        getBookedDays:string[]
+    }>(Get_Room_By_Id,{
         variables:{
-            roomId:id
+            roomId:id,
+            getBookedDaysRoomId2:id
         }
     })
-    console.log("error",error)
   if (CombinedGraphQLErrors.is(error)){
       switch (error.errors[0].extensions!.code){
           case "NOT_FOUND":
@@ -31,7 +34,10 @@ export default function DetailPage(){
   }
     return (
       <IsLoading isLoading={loading}>
-          <DetailCard room={((data as any)?.getRoomById as Room)}/>
+          <DetailCard
+              room={data?.getRoomById!}
+              bookedDays={data?.getBookedDays!}
+          />
       </IsLoading>
     )
 }

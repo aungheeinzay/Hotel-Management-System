@@ -13,9 +13,9 @@ export const bookingTypeDefs = gql(`
         total:Float!
     }
     type PaymentInfo{
-        id:ID!
+        id:ID
         status:String!
-        method:String!
+        method:String
     }
     type Booking {
     id:ID!
@@ -27,11 +27,27 @@ export const bookingTypeDefs = gql(`
     amount:Amount
     dayOfRent:Int!
     rentPerDay:Float!,
-#    paymentInfo:PaymentInfo
+  paymentInfo:PaymentInfo
     additionalNote:String
     createdAt:String,
     updatedAt:String
     }
+    type BookingByUser {
+        id:ID!
+        user:User,
+        room:Room!,
+        startDate:String!
+        endDate:String!
+        customer:Customer
+        amount:Amount
+        dayOfRent:Int!
+        rentPerDay:Float!,
+        paymentInfo:PaymentInfo
+        additionalNote:String
+        createdAt:String,
+        updatedAt:String
+    }
+    
     input CustomerInput{
         name:String!
         email:String!
@@ -61,6 +77,15 @@ export const bookingTypeDefs = gql(`
     input UpdateBookingPaymentInput{
         paymentInfo:PaymentInfoInput
     }
+    type metaBookingByUser{
+        unPaidBooking:Int!
+        needToPay:Float!
+        totalBooking:Int!
+    }
+    type responseBookingByUserId{
+        bookings:[BookingByUser]
+        meta:metaBookingByUser
+    }
 extend type  Mutation{
 createBooking(bookingInfo:BookingInput):String!
     updateBooking(bookingId:String!,bookingInput:UpdateBookingPaymentInput):Boolean
@@ -68,5 +93,7 @@ createBooking(bookingInfo:BookingInput):String!
     
 extend type Query{
     getBookingById(bookingId:String!):Booking
+    getBookedDays(roomId:String!):[String]
+    getBookingByUserId:responseBookingByUserId!
 }  
 `)

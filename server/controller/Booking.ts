@@ -35,3 +35,35 @@ export const updateBookingPayment=errorHandler(async (bookingId:string,bookingIn
     await booking.set(bookingInput).save()
     return true
 })
+
+export const getBookedDays = errorHandler(async (roomId:string)=>{
+    const books =await Booking.find({room:roomId})
+    if (!books)return null
+    return  books.flatMap((book)=>{
+        const dates=[]
+        const startDate = new Date(book.startDate)
+        const endDate = new Date(book.endDate)
+        for (let date = new Date(startDate);
+                date <= endDate;
+                date.setDate(date.getDate()+1)){
+            dates.push(new Date(date))
+        }
+        return [...dates]
+    })
+})
+
+export const getBookingByUserId=errorHandler(async (userId:string)=>{
+    const bookings =await Booking.find({user:userId}).populate("room").sort({createdAt:-1})
+    if (!bookings || bookings.length==0)return
+    const  totalBooking = bookings.length
+    const unPaidBooking = bookings.filter(booking=>booking?.paymentInfo?.status!=="paid").length
+    const needToPay = bookings.reduce((sum,booking)=>sum+=booking.amount.total,0)
+    return {
+        bookings,
+        meta:{
+            unPaidBooking,
+            needToPay,
+            totalBooking
+        }
+    }
+})

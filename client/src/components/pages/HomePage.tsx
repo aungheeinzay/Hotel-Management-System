@@ -1,15 +1,15 @@
 import {useQuery} from "@apollo/client/react";
 import {GET_ALL_ROOMS, GET_META_INFO} from "@/graphql/queries/room.ts";
 import IsLoading from "@/components/common/Loading.tsx";
-import RoomList from "@/components/common/homeComponent/CardList.tsx";
+import RoomList from "@/components/homeComponent/CardList.tsx";
 import IsAuthenticated from "@/components/common/IsAuthenticated.tsx";
 import type {Room} from "@/lib/type.ts";
 
-import FilterCard from "@/components/common/homeComponent/FilterCard.tsx";
+import FilterCard from "@/components/homeComponent/FilterCard.tsx";
 import {Link, useSearchParams} from "react-router";
 import {useDebounce} from "@/hooks/useDebounce.ts";
 import {useMemo} from "react";
-import Pagination from "@/components/common/homeComponent/Pagination.tsx";
+import Pagination from "@/components/homeComponent/Pagination.tsx";
 import {Button} from "@/components/ui/button.tsx";
 
 

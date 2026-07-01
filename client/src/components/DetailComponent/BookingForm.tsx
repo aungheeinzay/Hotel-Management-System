@@ -7,7 +7,7 @@ import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {useEffect, useState} from "react";
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {RangeCalender} from "@/components/common/DetailComponent/RangeCalander.tsx";
+import {RangeCalender} from "@/components/DetailComponent/RangeCalander.tsx";
 import * as React from "react";
 import type {DateRange} from "react-day-picker";
 import getDayOfRent from "@/lib/getDayOfRent.ts";
@@ -26,8 +26,9 @@ interface Props extends React.HtmlHTMLAttributes<HTMLDivElement>{
     disabledDates?:string[]
     rentPerDay:number
     roomId:string
+    isAvailable:boolean
 }
-export default function BookingForm({dates,disabledDates,rentPerDay,roomId}:Props){
+export default function BookingForm({dates,disabledDates,rentPerDay,roomId,isAvailable}:Props){
     const user = useReactiveVar(userInfoVar)
     const [createBook, {error,loading}]=useMutation<{
         createBooking:string
@@ -44,7 +45,7 @@ export default function BookingForm({dates,disabledDates,rentPerDay,roomId}:Prop
     )
 
 
-
+    console.log("disabled date from booking form",disabledDates)
     const form = useForm<bookingForm>({
         defaultValues:{
             name: "",
@@ -109,7 +110,7 @@ export default function BookingForm({dates,disabledDates,rentPerDay,roomId}:Prop
 async function onSubmit(value:bookingForm){
 
         const {name,email,dateRange,additionalNote}= value
-    console.log("date range",dateRange)
+
    if (!dateRange.from || !dateRange.to){
        return toast.error("need to add booking date")
    }
@@ -252,7 +253,7 @@ async function onSubmit(value:bookingForm){
                         }
                     </CardContent>
                 </Card>
-                <Button disabled={loading} type={"submit"}>book</Button>
+                <Button disabled={loading || dateRange==undefined || dayOfRent<=0 || !isAvailable} type={"submit"}>book</Button>
             </form>
         </div>
     )

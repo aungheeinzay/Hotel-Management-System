@@ -25,3 +25,30 @@ export const GET_BOOKING_BY_ID=gql(`
             updatedAt
         }
     }`)
+
+export const GET_MY_BOOKING= gql(`
+    query GetRoomById {
+        getBookingByUserId {
+            meta {
+                unPaidBooking
+                needToPay
+                totalBooking
+            }
+            bookings {
+                room {
+                    id
+                    title
+                }
+                endDate
+                startDate
+                paymentInfo {
+                    method
+                    status
+                }
+                amount {
+                    total
+                }
+                id
+            }
+        }
+    }`)

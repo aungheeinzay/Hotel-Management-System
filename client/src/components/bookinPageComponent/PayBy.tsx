@@ -2,13 +2,16 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {RiBankCardLine, RiWallet3Line} from "@remixicon/react";
 import {useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
-import {useMutation} from "@apollo/client/react";
+import {useMutation, useReactiveVar} from "@apollo/client/react";
 import {UPDATE_PAYMENT} from "@/graphql/mutation/booking.ts";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {toast} from "sonner";
+import {userInfoVar} from "@/apolllo/apolloVar.ts";
 
 export default function PayBy(){
     const [option,setOption] = useState<"cash" | "card">("cash")
+    const navigate = useNavigate()
+    const userInfo =useReactiveVar(userInfoVar)
     const {bookingId}= useParams()
     const [updatePayment,{error,loading}] =useMutation<{updateBooking:boolean}>(UPDATE_PAYMENT)
 
@@ -28,6 +31,7 @@ export default function PayBy(){
             })
             if (response.data?.updateBooking){
                 toast.success("payment with cash successfully")
+                return navigate(`/bookings/me/${userInfo?.id}`)
             }
             if (error){
                 toast.error("something went wrong")

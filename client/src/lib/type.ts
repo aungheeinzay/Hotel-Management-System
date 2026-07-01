@@ -68,12 +68,37 @@ export interface Booking {
     }
     dayOfRent:number
     rentPerDay:number,
-    // paymentInfo:{
-    //     id:string
-    //     status:string
-    //     method:string
-    // }
+    paymentInfo?:{
+        id:string
+        status:string
+        method:string
+    }
     additionalNote?:string
     createdAt:string,
     updatedAt:string
+}
+
+export interface MyBookingType{
+
+        bookings:{
+            id:string
+            room:{
+                id:string
+                title:string
+            }
+            endDate:string
+            startDate:string
+            paymentInfo:{
+                method:"card" | "cash" | null
+                status:"pending" | "paid"
+            }
+            amount:{
+                total:number
+            }
+        }[]
+        meta:{
+            unPaidBooking:number
+            needToPay:number
+            totalBooking:number
+        }
 }

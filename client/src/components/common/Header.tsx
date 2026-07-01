@@ -68,7 +68,7 @@ export default function Header(){
     }
     return(
         <nav className={"flex items-center justify-between layout"}>
-            <Link to={"/"} className={"text-4xl font-bold"}>Bagan Hotel</Link>
+            <Link to={"/"} className={"text-4xl font-bold"}>Golden Compass</Link>
            <IsLoading isLoading={loading}>
                {
                    (user) ?
