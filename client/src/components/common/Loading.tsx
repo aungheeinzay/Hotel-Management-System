@@ -4,7 +4,7 @@ import * as React from "react";
 interface loading{
     children:React.ReactNode;
     isLoading:boolean;
-
+    props?:any
 }
 export default function IsLoading({children,isLoading}:loading){
     return (

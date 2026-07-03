@@ -57,7 +57,12 @@ export const getBookingByUserId=errorHandler(async (userId:string)=>{
     if (!bookings || bookings.length==0)return
     const  totalBooking = bookings.length
     const unPaidBooking = bookings.filter(booking=>booking?.paymentInfo?.status!=="paid").length
-    const needToPay = bookings.reduce((sum,booking)=>sum+=booking.amount.total,0)
+    const needToPay = bookings.reduce((sum,booking)=>{
+        if (booking?.paymentInfo?.status=="pending"){
+            sum+=booking.amount.total
+        }
+        return sum
+    },0)
     return {
         bookings,
         meta:{
@@ -66,4 +71,12 @@ export const getBookingByUserId=errorHandler(async (userId:string)=>{
             totalBooking
         }
     }
+})
+
+export const getBookingForInvoice =errorHandler(async (bookingId:string)=>{
+    const booking = await Booking.findById(bookingId).populate("room")
+    if (!booking){
+        throw new NotFoundError(`Booking not found`)
+    }
+    return booking
 })

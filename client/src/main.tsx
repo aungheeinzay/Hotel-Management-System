@@ -19,6 +19,7 @@ import {ForgetPasswordPage} from "@/components/pages/ForgetPasswordPage.tsx";
 import ResetPasswordPage from "@/components/pages/ResetPasswordPage.tsx";
 import BookingPage from "@/components/pages/BookingPage.tsx";
 import MyBookingPage from "@/components/pages/MyBookingPage.tsx";
+import InvoicePage from "@/components/pages/InvoicePage.tsx";
 
 
 
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
             {
                 path:"/bookings/me/:id",
                 element:<MyBookingPage/>
+            },
+            {
+                path:"bookingInvoice/:bookingId",
+                element:<InvoicePage/>
             }
         ]
     }

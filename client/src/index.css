@@ -141,3 +141,9 @@
     @apply font-sans;
     }
 }
+
+#print-container.exporting {
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+}

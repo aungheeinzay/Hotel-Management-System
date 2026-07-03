@@ -78,9 +78,10 @@ export const columns: ColumnDef<BookingRow>[] = [
         cell: ({ row }) => {
            const status = row.original.status
             const id =row.original.id
+            const to = status=="paid" ? "/bookingInvoice/"+id :"/bookings/"+id+"/payment"
             const label = status=="paid"? "get invoice" : "pay now";
            return <Button asChild>
-               <Link to={"/bookings/"+id+"/payment"}>
+               <Link to={to}>
                    {label}
                </Link>
            </Button>

@@ -7,6 +7,8 @@ import {UPDATE_PAYMENT} from "@/graphql/mutation/booking.ts";
 import {useNavigate, useParams} from "react-router";
 import {toast} from "sonner";
 import {userInfoVar} from "@/apolllo/apolloVar.ts";
+import {STRIPE_CHECKOUT_SESSION} from "@/graphql/mutation/payment.ts";
+
 
 export default function PayBy(){
     const [option,setOption] = useState<"cash" | "card">("cash")
@@ -14,7 +16,7 @@ export default function PayBy(){
     const userInfo =useReactiveVar(userInfoVar)
     const {bookingId}= useParams()
     const [updatePayment,{error,loading}] =useMutation<{updateBooking:boolean}>(UPDATE_PAYMENT)
-
+    const [stripeCheckOut,{error:stripeError,loading:stripeLoading}] = useMutation<{stripeCheckoutSession:{url:string}}>(STRIPE_CHECKOUT_SESSION)
     async function handleUpdate(){
         if (option==="cash"){
             const variables={
@@ -35,6 +37,14 @@ export default function PayBy(){
             }
             if (error){
                 toast.error("something went wrong")
+            }
+        }else {
+            const {data} = await stripeCheckOut({variables:{bookingId}})
+            if(data?.stripeCheckoutSession.url) {
+               return window.location.href=data.stripeCheckoutSession.url
+            }
+            if (stripeError){
+                toast.error(stripeError.message)
             }
         }
     }
@@ -60,7 +70,7 @@ export default function PayBy(){
                     <RiBankCardLine />
                     <p>Pay with card</p>
                 </Card>
-                <Button disabled={loading} onClick={handleUpdate} className={"col-span-2"}>Payment conform with {option}</Button>
+                <Button disabled={loading || stripeLoading} onClick={handleUpdate} className={"col-span-2"}>Payment conform with {option} {(stripeLoading || loading) && "..."}</Button>
             </CardContent>
         </Card>
     )

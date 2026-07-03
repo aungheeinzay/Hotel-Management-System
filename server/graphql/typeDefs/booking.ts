@@ -86,6 +86,21 @@ export const bookingTypeDefs = gql(`
         bookings:[BookingByUser]
         meta:metaBookingByUser
     }
+    type BookingByInvoice{
+        id:ID!
+        user:ID!,
+        room:Room!,
+        startDate:String!
+        endDate:String!
+        customer:Customer
+        amount:Amount
+        dayOfRent:Int!
+        rentPerDay:Float!,
+        paymentInfo:PaymentInfo
+        additionalNote:String
+        createdAt:String,
+        updatedAt:String
+    }
 extend type  Mutation{
 createBooking(bookingInfo:BookingInput):String!
     updateBooking(bookingId:String!,bookingInput:UpdateBookingPaymentInput):Boolean
@@ -95,5 +110,6 @@ extend type Query{
     getBookingById(bookingId:String!):Booking
     getBookedDays(roomId:String!):[String]
     getBookingByUserId:responseBookingByUserId!
+    getBookingForInvoice(bookingId:String!):BookingByInvoice!
 }  
 `)

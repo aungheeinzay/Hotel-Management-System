@@ -102,3 +102,57 @@ export interface MyBookingType{
             totalBooking:number
         }
 }
+
+export interface InvoiceType {
+    number: string
+    sender: {
+        name: string
+    }
+    client: {
+        name: string
+        email: string
+    }
+    booking: {
+        checkIn: string
+        checkOut: string
+        nights: number
+        roomType: string
+    }
+    financials: {
+        ratePerNight: number
+        subtotal: number
+        taxRate: number
+        taxAmount: number
+        total: number
+        currency: string
+    },
+    notes:string
+}
+
+export interface BookingInvoice{
+    room: {
+    title: string
+        id: string
+        pricePerNight: number
+}
+    id:string
+    amount: {
+    total: number,
+       tax:number
+        rent:number
+        discount:number
+}
+    rentPerDay:number
+    paymentInfo: {
+    status:string,
+        method:string
+        id:string
+},
+    customer: {
+    email:string
+       name: string
+},
+    endDate:string
+    startDate:string
+    dayOfRent:number
+}

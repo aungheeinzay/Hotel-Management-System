@@ -13,6 +13,9 @@ import {decodedToken} from "../lib/jwt";
 import {User} from "../model/user";
 import {bookingTypeDefs} from "../graphql/typeDefs/booking";
 import {bookingResolvers} from "../graphql/resolvers/booking";
+import {PaymentTypeDefs} from "../graphql/typeDefs/payment";
+import {paymentResolver} from "../graphql/resolvers/payment";
+import {webhookHandler} from "../controller/Payment";
 type JWTPayload = {
     id:string
 }
@@ -20,8 +23,8 @@ type JWTPayload = {
 
 
 export const startApolloServer=async (app:Application)=>{
-    const typeDefs=[roomTypeDefs,userTypeDefs,bookingTypeDefs];
-    const resolvers=[roomResolver,userResolvers,bookingResolvers];
+    const typeDefs=[roomTypeDefs,userTypeDefs,bookingTypeDefs,PaymentTypeDefs];
+    const resolvers=[roomResolver,userResolvers,bookingResolvers,paymentResolver];
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers,
@@ -65,5 +68,24 @@ const schemaWithShields =  applyMiddleware(schema,permession)
             }
             return {req,res,user,userId}
         }
-    }))
+    }));
+
+
+    app.post("/api/payment/webhook",async (req:Request,res:Response)=>{
+        const stripeSignature = req.headers['stripe-signature']
+        try {
+            const isSuccess = await webhookHandler(stripeSignature, req.rawBody);
+
+            if (isSuccess) {
+                console.log("✅ Booking updated via webhook successfully!");
+                res.status(200).json({ received: true });
+            } else {
+
+                res.status(200).json({ received: true, message: "Unhandled event type" });
+            }
+        } catch (error: any) {
+            console.error("❌ Webhook Error:", error.message);
+            res.status(400).json({ error: `Webhook Error: ${error.message}` });
+        }
+    })
 }
