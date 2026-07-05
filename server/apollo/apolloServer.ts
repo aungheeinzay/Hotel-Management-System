@@ -16,6 +16,8 @@ import {bookingResolvers} from "../graphql/resolvers/booking";
 import {PaymentTypeDefs} from "../graphql/typeDefs/payment";
 import {paymentResolver} from "../graphql/resolvers/payment";
 import {webhookHandler} from "../controller/Payment";
+import {reviewTypeDefs} from "../graphql/typeDefs/review";
+import {reviewResolvers} from "../graphql/resolvers/review";
 type JWTPayload = {
     id:string
 }
@@ -23,8 +25,8 @@ type JWTPayload = {
 
 
 export const startApolloServer=async (app:Application)=>{
-    const typeDefs=[roomTypeDefs,userTypeDefs,bookingTypeDefs,PaymentTypeDefs];
-    const resolvers=[roomResolver,userResolvers,bookingResolvers,paymentResolver];
+    const typeDefs=[roomTypeDefs,userTypeDefs,bookingTypeDefs,PaymentTypeDefs,reviewTypeDefs];
+    const resolvers=[roomResolver,userResolvers,bookingResolvers,paymentResolver,reviewResolvers];
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers,

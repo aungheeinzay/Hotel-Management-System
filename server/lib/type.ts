@@ -131,3 +131,22 @@ export interface BookingPopulateRoom{
     createdAt:string,
     updatedAt:string
 }
+
+export interface Reviews{
+    id:string,
+    user:string,
+    room:string,
+    rating:number
+    comment:string,
+    createdAt:string,
+    updatedAt:string
+}
+
+export interface ReviewInput{
+    user:string,
+    room:string,
+    rating:number
+    comment:string,
+    createdAt:string,
+    updatedAt:string
+}

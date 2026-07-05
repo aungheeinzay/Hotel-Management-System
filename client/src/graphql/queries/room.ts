@@ -33,9 +33,17 @@ export const Get_Room_By_Id = gql(`
       images {
         url
       }
-      reviews
-      createdAt
-      updatedAt
+      reviews{
+        id
+        user {
+          id
+          username
+        }
+        rating
+        comment
+        createdAt
+        updatedAt
+      }
     }
     getBookedDays(roomId: $getBookedDaysRoomId2)
   }

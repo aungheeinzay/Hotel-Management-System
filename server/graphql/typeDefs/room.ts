@@ -21,7 +21,7 @@ title:String
 description:String
 isAvailable:Boolean!
 images:[RoomImages]
-reviews:[String]
+reviews:[Reviews]
 createdAt:String!
 updatedAt:String!
 }

@@ -1,4 +1,4 @@
-import type {Room} from "@/lib/type.ts";
+import type {DetailRoom} from "@/lib/type.ts";
 import {
     RiCheckboxCircleLine,
     RiCloseCircleLine,
@@ -18,7 +18,9 @@ import {Card, CardContent, CardHeader} from "@/components/ui/card.tsx";
 import BookingForm from "@/components/DetailComponent/BookingForm.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 
-export default function DetailCard({room,bookedDays}:{room:Room,bookedDays:string[]}) {
+import AddRate from "@/components/DetailComponent/AddRate.tsx";
+
+export default function DetailCard({room,bookedDays}:{room:DetailRoom,bookedDays:string[]}) {
     const items = [
         {
             icon:<RiWifiLine size={16} />,
@@ -42,7 +44,7 @@ export default function DetailCard({room,bookedDays}:{room:Room,bookedDays:strin
     ]
     return (
         <section className={"layout h-screen grid grid-cols-5 gap-4"}>
-            <Card className={"col-span-3 p-4"}>
+            <Card className={"col-span-3 p-4 flex flex-cols gap-10 h-screen overflow-y-scroll"}>
                 <Carousel className="">
                     <CarouselContent>
                         {
@@ -86,7 +88,10 @@ export default function DetailCard({room,bookedDays}:{room:Room,bookedDays:strin
                     </div>
 
                     <p className={"text-md font-normal antialiased"}>Reviews ({room.reviews.length})</p>
+
                 </div>
+                {/*reviews*/}
+                <AddRate reviews={room.reviews} room={room.id}/>
             </Card>
 
           <Card className={"col-span-2 text-md"}>

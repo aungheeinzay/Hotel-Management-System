@@ -15,10 +15,23 @@ export interface Room extends BaseModel{
     title:string
     description:string
     images:Image[]
-    reviews:string[]
+    reviews:string[] | any
     createdAt?:string
     updatedAt?:string
 
+}
+export interface DetailRoom extends Room{
+    reviews:{
+        id:string
+        user :{
+        id:string
+        username:string
+        }
+        rating:number
+        comment:string
+        createdAt:string
+        updatedAt:string
+    }[]
 }
 export interface HomeRoom{
     rooms:(Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title">)[]

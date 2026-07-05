@@ -1,4 +1,5 @@
-import {model, Schema} from "mongoose";
+import mongoose, {model, Schema} from "mongoose";
+import {unwatchFile} from "node:fs";
 
 const roomSchema = new Schema({
     roomNumber:{
@@ -33,22 +34,29 @@ const roomSchema = new Schema({
         public_id:String
         }
     ],
-    reviews:[String]
-
+    reviews:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Review"
+    }]
 
 
 },{timestamps:true})
 
+roomSchema.virtual("ratings").get(function(){
+    const numberOfReviews  = this.reviews.length;
+    if (numberOfReviews==0){
+        return {
+            value:5,
+            count:0
+        }
+    }
+    const totalRating = this.reviews.reduce((sum,rev:any)=>sum+=rev.rating,0)
+    const value = totalRating>0 ? totalRating/numberOfReviews : 0
+    return {
+        value,
+        count:numberOfReviews
+    }
+})
+
 export const Room = model("Room",roomSchema)
 
-// id:ID!
-// roomNumber:String
-// type:String!
-// pricePerNight:Float!
-// capacity:Int!
-// isAvailable:Boolean!
-// images:[RoomImages]
-// reviews:[String]
-// createdAt:String!
-// updatedAt:String!
-// }

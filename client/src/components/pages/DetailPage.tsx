@@ -4,7 +4,7 @@ import {Get_Room_By_Id} from "@/graphql/queries/room.ts";
 import {useParams} from "react-router";
 
 import DetailCard from "@/components/DetailComponent/DetailCard.tsx";
-import type {Room} from "@/lib/type.ts";
+import type {DetailRoom} from "@/lib/type.ts";
 import IsLoading from "@/components/common/Loading.tsx";
 import NotFound from "@/components/common/NotFound.tsx";
 
@@ -13,7 +13,7 @@ import NotFound from "@/components/common/NotFound.tsx";
 export default function DetailPage(){
     const {id} =useParams()
     const {data,loading,error} = useQuery<{
-        getRoomById:Room,
+        getRoomById:DetailRoom,
         getBookedDays:string[]
     }>(Get_Room_By_Id,{
         variables:{

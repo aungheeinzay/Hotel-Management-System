@@ -79,10 +79,12 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
-     <ApolloProvider client={client}>
-         <Toaster/>
-         <RouterProvider router={router}/>
-     </ApolloProvider>
+        <ApolloProvider client={client}>
+            <div
+                className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none"></div>
+            <Toaster/>
+            <RouterProvider router={router} />
+        </ApolloProvider>
     </ThemeProvider>
   </StrictMode>
 )

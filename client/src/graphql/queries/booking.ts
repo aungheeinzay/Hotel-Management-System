@@ -5,7 +5,7 @@ export const GET_BOOKING_BY_ID=gql(`
         getBookingById(bookingId: $bookingId) {
             id
             user
-            room
+            
             startDate
             endDate
             customer {

@@ -27,6 +27,13 @@ export const createNewRoom =errorHandler( async (inputRoom:RoomType)=>{
 
 export const getRoomById =errorHandler(async (id:string)=>{
     const room =await Room.findById(id)
+        .populate({
+            path:"reviews",
+            populate:{
+                path:"user",
+                model:"User"
+            }
+        })
     if (!room){
         throw new NotFoundError("Room not found")
     }

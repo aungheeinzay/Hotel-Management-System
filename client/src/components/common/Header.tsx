@@ -67,7 +67,7 @@ export default function Header(){
 
     }
     return(
-        <nav className={"flex items-center justify-between layout"}>
+        <nav className={"flex items-center justify-between layout px-4 py-4 sticky top-0 z-50 w-full border-b border-white/10 bg-white/30 backdrop-blur-md dark:bg-black/30"}>
             <Link to={"/"} className={"text-4xl font-bold"}>Golden Compass</Link>
            <IsLoading isLoading={loading}>
                {
