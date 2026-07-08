@@ -1,5 +1,5 @@
 import {createNewRoom, deleteRoom, filterMetaInfo, getAllRooms, getRoomById, updateRoom} from "../../controller/room";
-import type {RoomFilters, RoomType} from "../../lib/type";
+import type {RoomFilters, RoomInputType, RoomType} from "../../lib/type";
 
 export const roomResolver ={
     Query:{
@@ -9,8 +9,8 @@ export const roomResolver ={
 
     },
     Mutation:{
-        createNewRoom:async(_:any, {roomInput}:{roomInput: RoomType})=>await createNewRoom(roomInput),
-        updateRoom:async(_:any,{roomId,roomInput}:{roomId:string,roomInput:RoomType})=>await updateRoom(roomId,roomInput),
+        createNewRoom:async(_:any, {roomInput}:{roomInput: RoomInputType})=>await createNewRoom(roomInput),
+        updateRoom:async(_:any,{roomId,roomInput,removeImage}:{roomId:string,roomInput:Partial<RoomInputType>,removeImage:string[]})=>await updateRoom(roomId,roomInput,removeImage),
         deleteRoom:async(_:any,{roomId}:{roomId:string})=>await deleteRoom(roomId)
     }
 }

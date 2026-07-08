@@ -15,17 +15,23 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/table.tsx"
+import { Button } from "@/components/ui/button.tsx"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    onChange?: (value:()=>number) => void
+    page?:number
+    hasNext?:boolean
 }
 
 export function DataTable<TData, TValue>({
                                              columns,
                                              data,
+                                             onChange,
+                                             page,
+    hasNext
                                          }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
@@ -33,6 +39,36 @@ export function DataTable<TData, TValue>({
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     })
+    console.log(hasNext,"hasnext")
+    function handlePrevious(){
+        if (page && onChange){
+            onChange(()=>page>1 ? page-1 : page)
+        }else {
+            table.previousPage()
+        }
+    }
+    function handleNext() {
+        if (page && onChange){
+            onChange(()=>hasNext ? page+1 :page)
+        }else {
+            table.nextPage()
+        }
+    }
+
+    const disableNext =()=>{
+        if (page && onChange){
+            return !hasNext
+        }else {
+            return table.getCanNextPage()
+        }
+    }
+    const disablePrev=()=>{
+        if (page && onChange){
+            return page===1
+        }else {
+            return table.getCanPreviousPage()
+        }
+    }
 
     return (
        <div>
@@ -84,16 +120,16 @@ export function DataTable<TData, TValue>({
                <Button
                    variant="outline"
                    size="sm"
-                   onClick={() => table.previousPage()}
-                   disabled={!table.getCanPreviousPage()}
+                   onClick={handlePrevious}
+                   disabled={disablePrev()}
                >
                    Previous
                </Button>
                <Button
                    variant="outline"
                    size="sm"
-                   onClick={() => table.nextPage()}
-                   disabled={!table.getCanNextPage()}
+                   onClick={handleNext}
+                   disabled={disableNext()}
                >
                    Next
                </Button>

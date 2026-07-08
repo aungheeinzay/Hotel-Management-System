@@ -34,8 +34,19 @@ description:String
 location:String!
 capacity:Int!
 isAvailable:Boolean!
-images:[RoomImageInput]
+images:[String]
 reviews:[String]
+}
+input UpdateRoomInput{
+    roomNumber:String
+    type:String
+    pricePerNight:Float
+    title:String
+    description:String
+    location:String
+    capacity:Int
+    isAvailable:Boolean
+    images:[String]
 }
 input PriceFilter{
     gt:Int
@@ -59,6 +70,9 @@ type metaInfo{
     Type:[String]
     Capacity:[Int]
 }
+type CreateUpdateRoomResult{
+    message:String!
+}
 type Query {
 getAllRooms(query:String,filters:RoomFilters,page:String!,perPage:String!):ReturnGetAllRooms
 getRoomById(roomId:String!):Room
@@ -66,9 +80,10 @@ getRoomById(roomId:String!):Room
 }
 
 type Mutation {
-createNewRoom(roomInput:roomInput):Room
-updateRoom(roomId:String,roomInput:roomInput):String
+createNewRoom(roomInput:roomInput):CreateUpdateRoomResult!
+updateRoom(roomId:String!,roomInput:UpdateRoomInput,removeImage:[String]):CreateUpdateRoomResult!
 deleteRoom(roomId:String):String
 }
 
 `;
+

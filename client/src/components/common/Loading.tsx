@@ -10,7 +10,7 @@ export default function IsLoading({children,isLoading}:loading){
     return (
         <React.Fragment>
             {
-                isLoading ? <p>Loading ...</p> :
+                isLoading ? <p className={"items-center text-lg font-semibold"}>Loading ...</p> :
                    children
             }
 

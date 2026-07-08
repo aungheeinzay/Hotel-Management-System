@@ -101,6 +101,26 @@ export const bookingTypeDefs = gql(`
         createdAt:String,
         updatedAt:String
     }
+
+#    return {
+#    saleData: finalSaleDate,
+#    totalSales,
+#    totalBooking,
+#    totalPendingSale: totalPendingAmount,
+#    totalPaidCash: totalPaidCash
+#    }
+    type SaleData{
+        date:String!,
+        sales:Int!
+        booking:Int!
+    }
+    type DashBoardMetaDataResult{
+        saleData:[SaleData]!
+        totalSales:Float!
+        totalBooking:Int!
+        totalPendingSale:Int!
+        totalPaidCash:Int!
+    }
 extend type  Mutation{
 createBooking(bookingInfo:BookingInput):String!
     updateBooking(bookingId:String!,bookingInput:UpdateBookingPaymentInput):Boolean
@@ -111,5 +131,6 @@ extend type Query{
     getBookedDays(roomId:String!):[String]
     getBookingByUserId:responseBookingByUserId!
     getBookingForInvoice(bookingId:String!):BookingByInvoice!
+    getDashBoardMetaData(startDate:String!,endDate:String!):DashBoardMetaDataResult!
 }  
 `)

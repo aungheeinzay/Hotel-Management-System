@@ -20,6 +20,11 @@ import ResetPasswordPage from "@/components/pages/ResetPasswordPage.tsx";
 import BookingPage from "@/components/pages/BookingPage.tsx";
 import MyBookingPage from "@/components/pages/MyBookingPage.tsx";
 import InvoicePage from "@/components/pages/InvoicePage.tsx";
+import AdminLayout from "@/components/layout/AdminLayout.tsx";
+import DashboardContainer from "@/components/admin/dashboard/DashboardContainer.tsx";
+import ManageRoom from "@/components/admin/room/ManageRoom.tsx";
+import CreateRoom from  "@/components/admin/room/CreateRoom.tsx"
+import UpdateRoom from "@/components/admin/room/UpdateRoom.tsx";
 
 
 
@@ -74,6 +79,28 @@ const router = createBrowserRouter([
                 element:<InvoicePage/>
             }
         ]
+    },
+    {
+        path:"/admin/dashboard",
+        element:<AdminLayout/>,
+        children:[
+            {
+                index:true,
+                element:<DashboardContainer/>
+            },
+            {
+                path:"manageRoom",
+                element:<ManageRoom/>
+            },
+            {
+                path:"createRoom",
+                element:<CreateRoom/>
+            },
+            {
+                path:"updateRoom/:roomId",
+                element:<UpdateRoom/>
+            }
+        ]
     }
 ])
 createRoot(document.getElementById("root")!).render(
@@ -81,7 +108,7 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
         <ApolloProvider client={client}>
             <div
-                className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none"></div>
+                className="absolute -z-10 inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none"></div>
             <Toaster/>
             <RouterProvider router={router} />
         </ApolloProvider>

@@ -1,9 +1,9 @@
 import type {MyBookingType} from "@/lib/type.ts";
 
 import {RiErrorWarningLine, RiHandCoinLine, RiWalletLine} from "@remixicon/react";
-import MetaInfoCard from "@/components/MyBookings/metaInfoCard.tsx";
+import MetaInfoCard from "@/components/common/metaInfoCard.tsx";
 import {type BookingRow, columns} from "@/components/MyBookings/columns.tsx";
-import {DataTable} from "@/components/MyBookings/Data_Table.tsx";
+import {DataTable} from "@/components/common/Data_Table.tsx";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {useReactiveVar} from "@apollo/client/react";
 import {userInfoVar} from "@/apolllo/apolloVar.ts";
@@ -28,12 +28,12 @@ export default function MyBooking({bookings,meta}:MyBookingType){
     const metaInfoList=[
         {
             label:"Total Bookings",
-            value:meta.totalBooking,
+            value:meta.totalBooking.toString(),
             icon:<RiWalletLine size={16} />
         },
         {
             label:"Unpaid Bookings",
-            value:meta.unPaidBooking,
+            value:meta.unPaidBooking.toString(),
             icon:<RiErrorWarningLine size={16} />
         },
         {

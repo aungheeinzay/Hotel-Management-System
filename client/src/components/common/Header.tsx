@@ -38,9 +38,7 @@ export default function Header(){
         // }
     )
     useEffect(() => {
-
         loadingVar(loading);
-
         if (!loading) {
             if (data?.currentUser) {
                 userInfoVar(data.currentUser);

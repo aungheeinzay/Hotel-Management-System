@@ -2,7 +2,7 @@ import {
     createBooking,
     getBookedDays,
     getBookingById,
-    getBookingByUserId, getBookingForInvoice,
+    getBookingByUserId, getBookingForInvoice, getDashBoardMetaData,
     updateBookingPayment
 } from "../../controller/Booking";
 import type {BookingInput, UserType} from "../../lib/type";
@@ -16,6 +16,7 @@ export const bookingResolvers={
         getBookingById:async(_:any,{bookingId}:{bookingId:string},{userId}:{userId:string})=>await getBookingById(bookingId,userId),
         getBookedDays:async(_:any,{roomId}:{roomId:string})=>await getBookedDays(roomId),
         getBookingByUserId:async(_:any,__:any,{userId}:{userId:string})=>await getBookingByUserId(userId),
-        getBookingForInvoice:async(_:any,{bookingId}:{bookingId:string})=>getBookingForInvoice(bookingId)
+        getBookingForInvoice:async(_:any,{bookingId}:{bookingId:string})=>getBookingForInvoice(bookingId),
+        getDashBoardMetaData:async(_:any,{startDate,endDate}:{startDate:string,endDate:string})=>await getDashBoardMetaData(startDate,endDate)
     }
 }

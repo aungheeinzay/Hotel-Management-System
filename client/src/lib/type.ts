@@ -41,6 +41,24 @@ export interface RoomCard{
     room:Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title">
 }
 
+export interface UpdateRoom{
+
+        id: string
+        roomNumber: string
+        type: string,
+        pricePerNight:number
+        location:string
+        capacity:number
+        title:string
+        description: string,
+        isAvailable: boolean
+        "images":
+            {
+                url: string
+                public_id: string
+
+            }[]
+}
 export interface User extends BaseModel{
     username:string
     email:string

@@ -14,7 +14,7 @@ import {Button} from "@/components/ui/button.tsx";
 
 
 export default function FilterCard({Location,Capacity,Type,loading}:FilterCardProps) {
-    console.log("filter card props",Location,Type,Capacity)
+
     const [searchValue, setSearchValue] = useState("");
     const [searchParams, setSearchParams] = useSearchParams(); // searchParam -> searchParams (Plural standard)
     const navigate = useNavigate()

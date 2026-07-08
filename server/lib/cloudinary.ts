@@ -32,7 +32,17 @@ export const uploadSingleImage =async (image:string,folder:string)=>{
         const promise = images.map((img) => cloudinary.uploader.upload(img,{
             asset_folder:folder,
             use_asset_folder_as_public_id_prefix: true
+
     }))
+        const  res = await Promise.all(promise)
+
+        const imagesArr =  res.map((img)=>{
+            return{
+                url:img.secure_url,
+                public_id:img.public_id
+            }
+        })
+        return imagesArr
 }
 
 export const deleteImage=async (public_id:string)=>{

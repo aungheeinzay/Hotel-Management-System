@@ -1,7 +1,7 @@
 
 import {Button} from "@/components/ui/button.tsx";
 import Rating from "@/components/common/Rating.tsx";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import Reviews from "@/components/DetailComponent/Reviews.tsx";
 import {useMutation} from "@apollo/client/react";
 import {CREATE_UPDATE_REVIEW} from "@/graphql/mutation/review.ts";
@@ -22,11 +22,6 @@ interface AddRateProps{
     }[]
 }
 export default function AddRate({reviews,room}:AddRateProps){
-    console.log("roomId",room)
-
-    useEffect(() => {
-        console.log("review ",reviews)
-    }, [reviews]);
     const [rating,setRating]=useState<number>(5)
     const [comment,setComment] = useState("")
     const [createUpdateReview,{loading}] = useMutation<{

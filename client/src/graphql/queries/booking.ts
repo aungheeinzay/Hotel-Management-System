@@ -84,3 +84,21 @@ export const GET_BOOKING_FOR_INVOICE=gql(`
         }
     }
     `)
+
+
+export const GET_DASHBOARD_DATA = gql(`
+
+
+    query GetDashBoardMetaData($startDate: String!, $endDate: String!) {
+        getDashBoardMetaData(startDate: $startDate, endDate: $endDate) {
+            saleData {
+                date
+                sales
+                booking
+            }
+            totalSales
+            totalBooking
+            totalPendingSale
+            totalPaidCash
+        }
+    }`)

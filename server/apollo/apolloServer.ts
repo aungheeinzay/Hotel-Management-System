@@ -52,7 +52,7 @@ const schemaWithShields =  applyMiddleware(schema,permession)
     app.use("/graphql",cors({
         credentials:true,
         origin:true
-    }),json(), expressMiddleware(apolloServer,{
+    }),json({limit:"50mb"}), expressMiddleware(apolloServer,{
         context:async({req,res}:{req:Request,res:Response})=>{
             let user = null;
             const token = req.cookies?.token

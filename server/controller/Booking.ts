@@ -80,3 +80,109 @@ export const getBookingForInvoice =errorHandler(async (bookingId:string)=>{
     }
     return booking
 })
+
+export const getDashBoardMetaData = errorHandler(async (startDate: string | number, endDate: string | number) => {
+
+    const start = new Date(startDate);
+    start.setUTCHours(0, 0, 0, 0);
+
+    const end = new Date(endDate);
+    end.setUTCHours(23, 59, 59, 999);
+
+    // 2. MongoDB Aggregation
+    const saleDataInfo = await Booking.aggregate([
+        {
+            $match: {
+                createdAt: {
+                    $gte: start,
+                    $lte: end
+                }
+            }
+        },
+        {
+            $facet: {
+                salesData: [
+                    {
+                        $group: {
+                            _id: {
+                                date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }
+                            },
+                            totalSales: { $sum: "$amount.total" },
+                            numberOfBooking: { $sum: 1 }
+                        }
+                    }
+                ],
+                pendingCashData: [
+                    { $match: { "paymentInfo.status": "pending" } },
+                    {
+                        $group: {
+                            _id: null,
+                            totalPendingCash: { $sum: "$amount.total" }
+                        }
+                    }
+                ],
+                paidCashData: [
+                    {
+                        $match: {
+                            "paymentInfo.status": "paid"
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            totalPaidCash: { $sum: "$amount.total" } // tatal မှ total သို့ ပြင်ဆင်ထားသည်
+                        }
+                    }
+                ]
+            }
+        }
+    ]);
+
+    // 3. Destructuring Data
+    const {
+        salesData: salesDataResult = [],
+        pendingCashData: pendingCashDataResult = [],
+        paidCashData: paidCashDataResult = []
+    } = saleDataInfo[0] || {};
+
+    let totalSales = 0;
+    let totalBooking = 0;
+    const saleMap = new Map();
+
+    // 4. Map ထဲသို့ DB ကရလာသော Data များ ထည့်သွင်းခြင်း
+    salesDataResult.forEach((data: any) => {
+        const date = data?._id?.date;
+        const sales = data?.totalSales || 0;
+        const booking = data?.numberOfBooking || 0;
+
+        saleMap.set(date, { sales, booking });
+        totalSales += sales;
+        totalBooking += booking;
+    });
+
+    // 5. ကြားထဲတွင် အရောင်းမရှိသော ရက်များကိုပါ 0 ဖြင့် ဖြည့်စွက်ပေးခြင်း
+    const finalSaleDate = [];
+    const currentDate = new Date(start);
+
+    while (currentDate <= end) {
+        const dateStr = currentDate.toISOString().split("T")[0];
+        finalSaleDate.push({
+            date: dateStr,
+            sales: saleMap.get(dateStr)?.sales || 0,
+            booking: saleMap.get(dateStr)?.booking || 0
+        });
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    const totalPendingAmount = pendingCashDataResult[0]?.totalPendingCash || 0;
+    const totalPaidCash = paidCashDataResult[0]?.totalPaidCash || 0;
+
+
+    return {
+        saleData: finalSaleDate,
+        totalSales,
+        totalBooking,
+        totalPendingSale: totalPendingAmount,
+        totalPaidCash: totalPaidCash
+    };
+});

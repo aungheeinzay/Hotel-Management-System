@@ -23,6 +23,18 @@ export type RoomType={
 
 export type ServerResponseRoom=ID & RoomType
 
+export type RoomInputType={
+    roomNumber:string
+    type:string
+    location:string
+    title:string
+    description:string
+    pricePerNight:number
+    capacity:number
+    isAvailable:boolean
+    images:string[]
+    reviews?:string[]
+}
 
 //user type
 

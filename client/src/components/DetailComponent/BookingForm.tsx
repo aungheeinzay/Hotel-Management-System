@@ -205,7 +205,10 @@ async function onSubmit(value:bookingForm){
                                 <RangeCalender
                                     dates={dates}
                                     disabledDates={disabledDates}
-                                    onDateChange={field.onChange}/>
+                                    onDateChange={field.onChange}
+                                    isDisabled={true}
+                                />
+
                                 {fieldState.invalid && (
                                     <FieldError errors={[fieldState.error]} />
                                 )}

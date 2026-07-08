@@ -58,3 +58,38 @@ export const GET_META_INFO=gql(`
       Type
     }
   }`)
+
+export const GET_ROOMS_FOR_ADMIN = gql(`
+    query GetAllRooms($page: String!, $perPage: String!) {
+        getAllRooms(page: $page, perPage: $perPage) {
+            rooms {
+                id
+                type
+                location
+                pricePerNight
+                title
+                isAvailable
+            }
+            totalRooms
+        }
+    }`)
+
+export const EDIT_ROOM_BY_ID = gql(`
+    query Query($roomId: String!) {
+        getRoomById(roomId: $roomId) {
+            id
+            roomNumber
+            type
+            pricePerNight
+            location
+            capacity
+            title
+            description
+            isAvailable
+            images {
+                url
+                public_id
+            }
+        }
+    }
+`)

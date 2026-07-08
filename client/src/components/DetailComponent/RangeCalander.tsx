@@ -17,8 +17,9 @@ interface Props extends React.HtmlHTMLAttributes<HTMLDivElement>{
     dates?:DateRange
     disabledDates?:string[]
     onDateChange:(date:DateRange | undefined)=>void
+    isDisabled:boolean
 }
-export function RangeCalender({dates,disabledDates,onDateChange}:Props) {
+export function RangeCalender({dates,disabledDates,onDateChange,isDisabled}:Props) {
     const [searchParams] = useSearchParams()
 
     const startDate = searchParams.get("startDate")
@@ -73,7 +74,7 @@ const handleDateChange=(newDate : DateRange | undefined)=>{
                             selected={currentDate}
                             onSelect={handleDateChange}
                             numberOfMonths={2}
-                            disabled={[...parseDates,{before:new Date()}]}
+                            disabled={[...parseDates,isDisabled && {before:new Date()}]}
                         />
                     </CardContent>
                 </Card>
