@@ -61,10 +61,12 @@ export default function CreateAndUpdateRoomForm({isEdit,roomData}:CreateUpdateRo
     }, [images]);
 
     useEffect(() => {
-        form.reset({
-            ...roomData,
-            images:images || []
-        })
+      if (isEdit && roomData){
+          form.reset({
+              ...roomData,
+              images:images || []
+          })
+      }
     }, [isEdit,roomData,form]);
 
     const handleFile=(file:FileList | null)=>{
@@ -120,8 +122,11 @@ export default function CreateAndUpdateRoomForm({isEdit,roomData}:CreateUpdateRo
                 })
                 if (data?.updateRoom){
                     form.reset()
-                    navigate("/admin/dashboard/manageRoom")
+
+                    setImages([])
+                    setServerImages([])
                     form.reset()
+                    navigate("/admin/dashboard/manageRoom")
                     return toast.success(data.updateRoom.message)
                 }
                 if (error){
@@ -136,6 +141,8 @@ export default function CreateAndUpdateRoomForm({isEdit,roomData}:CreateUpdateRo
             if (data?.createNewRoom){
 
                 form.reset()
+                setImages([])
+                setServerImages([])
                 return toast.success(data.createNewRoom.message)
             }
             if (error){
@@ -287,7 +294,7 @@ export default function CreateAndUpdateRoomForm({isEdit,roomData}:CreateUpdateRo
                 <Button
 
                     disabled={!form.formState.isValid}
-                    type={"submit"}
+                    type={"button"}
                     variant={"outline"}
                     className={"border-2 cursor-pointer"}
 

@@ -32,6 +32,23 @@ export const bookingTypeDefs = gql(`
     createdAt:String,
     updatedAt:String
     }
+    
+    type BookingForAdmin{
+        id:ID!
+        user:User,
+        room:Room,
+        startDate:String!
+        endDate:String!
+        customer:Customer
+        amount:Amount
+        dayOfRent:Int!
+        rentPerDay:Float!,
+        paymentInfo:PaymentInfo
+        additionalNote:String
+        createdAt:String,
+        updatedAt:String
+    }
+    
     type BookingByUser {
         id:ID!
         user:User,
@@ -121,6 +138,11 @@ export const bookingTypeDefs = gql(`
         totalPendingSale:Int!
         totalPaidCash:Int!
     }
+    
+    type GetAllBookings{
+        bookings:[BookingForAdmin],
+        totalBookings:Int!
+    }
 extend type  Mutation{
 createBooking(bookingInfo:BookingInput):String!
     updateBooking(bookingId:String!,bookingInput:UpdateBookingPaymentInput):Boolean
@@ -132,5 +154,9 @@ extend type Query{
     getBookingByUserId:responseBookingByUserId!
     getBookingForInvoice(bookingId:String!):BookingByInvoice!
     getDashBoardMetaData(startDate:String!,endDate:String!):DashBoardMetaDataResult!
+    getAllBookings(page:Int,perPage:Int):GetAllBookings!
 }  
+    type Subscription{
+        newBookingNoti:String!
+    }
 `)

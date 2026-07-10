@@ -22,6 +22,7 @@ description:String
 isAvailable:Boolean!
 images:[RoomImages]
 reviews:[Reviews]
+    ratings:Ratings!
 createdAt:String!
 updatedAt:String!
 }
@@ -82,8 +83,13 @@ getRoomById(roomId:String!):Room
 type Mutation {
 createNewRoom(roomInput:roomInput):CreateUpdateRoomResult!
 updateRoom(roomId:String!,roomInput:UpdateRoomInput,removeImage:[String]):CreateUpdateRoomResult!
-deleteRoom(roomId:String):String
+deleteRoom(roomId:String):Boolean!
 }
+type Ratings{
+    value:Float!
+    count:Int!
+}
+
 
 `;
 

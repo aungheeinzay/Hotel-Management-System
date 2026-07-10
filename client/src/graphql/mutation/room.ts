@@ -13,3 +13,8 @@ export const UPDATE_ROOM = gql(`
             message
         }
     }`);
+
+export const DELETE_ROOM = gql(`
+    mutation Mutation($roomId: String) {
+        deleteRoom(roomId: $roomId)
+    }`)

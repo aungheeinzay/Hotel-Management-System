@@ -38,5 +38,5 @@ function Page(){
     )
 }
 
-const UpdateRoom = IsAuthenticated(Page,"admin")
-export default UpdateRoom;
+const UpdateRoomPage = IsAuthenticated(Page,"admin")
+export default UpdateRoomPage;

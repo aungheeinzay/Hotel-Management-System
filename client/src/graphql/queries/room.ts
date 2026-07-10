@@ -11,6 +11,10 @@ export const GET_ALL_ROOMS = gql`
         }
         location
         pricePerNight
+        ratings {
+            value
+            count
+        }  
       }
       totalRooms
     }

@@ -10,3 +10,8 @@ export const UPDATE_PAYMENT=gql(`
     mutation UpdateBooking($bookingId: String!, $bookingInput: UpdateBookingPaymentInput) {
         updateBooking(bookingId: $bookingId, bookingInput: $bookingInput)
     }`)
+
+export const UPDATE_BOOKING = gql(`
+    mutation Mutation($bookingId: String!, $bookingInput: UpdateBookingPaymentInput) {
+        updateBooking(bookingId: $bookingId, bookingInput: $bookingInput)
+    }`)

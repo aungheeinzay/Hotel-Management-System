@@ -1,9 +1,19 @@
 import {NavLink, Outlet} from "react-router";
 import Header from "@/components/common/Header.tsx";
 import {cn} from "@/lib/utils.ts"
-import {RiDashboardFill, RiHotelBedLine, RiMenuAddLine} from "@remixicon/react";
+import {RiCoupon3Line, RiDashboardFill, RiHotelBedLine, RiMenuAddLine} from "@remixicon/react";
+import {useSubscription} from "@apollo/client/react";
+import {NEW_BOOKING_SUBSCRIPTION} from "@/graphql/subscription/booking.ts";
+import {useEffect} from "react";
+import {toast} from "sonner";
 export default function AdminLayout(){
-     console.log("admin layout")
+    const {data}=useSubscription(NEW_BOOKING_SUBSCRIPTION)
+    useEffect(() => {
+        console.log("data",data)
+       if (data){
+           toast.success((data as any)?.newBookingNoti)
+       }
+    }, [data]);
     const control =[
         {
         path:"/admin/dashboard",
@@ -19,6 +29,11 @@ export default function AdminLayout(){
             path:"/admin/dashboard/createRoom",
             label:"Add New Room",
             icon:<RiMenuAddLine />
+        },
+        {
+            path:"/admin/dashboard/bookings",
+            label:"All Bookings",
+            icon:<RiCoupon3Line />
         }
         ]
     return <section className={"layout grid grid-cols-12 gap-4"}>

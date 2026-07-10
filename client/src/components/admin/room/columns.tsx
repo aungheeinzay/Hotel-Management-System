@@ -11,6 +11,10 @@ import {Button} from "@/components/ui/button.tsx";
 import {useNavigate} from "react-router";
 import {RiDeleteBin6Line, RiEditBoxLine} from "@remixicon/react";
 import formatNumber from "@/lib/formatNumber.ts";
+import {useMutation} from "@apollo/client/react";
+import {DELETE_ROOM} from "@/graphql/mutation/room.ts";
+import {toast} from "sonner";
+import {GET_ROOMS_FOR_ADMIN} from "@/graphql/queries/room.ts";
 
 
 export type Room = {
@@ -54,9 +58,33 @@ export const columns: ColumnDef<Room>[] = [
     {   header:"Action",
         id: "actions",
         cell: ({ row }) => {
+
             const navigate = useNavigate()
+            const [deletetingRoom,{error,loading}] = useMutation(DELETE_ROOM,{
+                refetchQueries:[{
+                    query:GET_ROOMS_FOR_ADMIN,
+                    variables:{
+                        page:"1",
+                        perPage:"5"
+                    }
+                }]
+            })
             const id =row.original.id
 
+
+            async function deleteRoom(id:string){
+               const res = await deletetingRoom({
+                    variables:{
+                        roomId:id
+                    }
+
+                })
+                if (res){
+
+                    return toast.success("deleting successfully")
+                }
+                if (error)return toast.error(error.message)
+            }
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -77,7 +105,11 @@ export const columns: ColumnDef<Room>[] = [
                             className={"flex gap-2"}
                             onClick={()=>navigate(`/admin/dashboard/updateRoom/${id}`)}
                         > <RiEditBoxLine /> edit </DropdownMenuItem>
-                        <DropdownMenuItem className={"text-red-500 flex gap-2"}> <RiDeleteBin6Line /> delete</DropdownMenuItem>
+                        <DropdownMenuItem
+                            className={"text-red-500 flex gap-2"}
+                            onClick={()=>deleteRoom(id)}
+                            disabled={loading}
+                        > <RiDeleteBin6Line />{loading ? "deleting..." : "delete"} </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

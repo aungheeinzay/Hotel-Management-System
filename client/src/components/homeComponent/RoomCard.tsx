@@ -5,6 +5,7 @@ import {Link} from "react-router";
 import Rating from "@/components/common/Rating.tsx";
 
 export default function RoomCard({room}:RoomCard){
+    console.log("room",room.ratings.value)
     return (
     <Link to={"/"+room.id}>
         <Card className={"max-w-60 pt-0 group"}>
@@ -13,7 +14,13 @@ export default function RoomCard({room}:RoomCard){
                     src={room.images[0].url}
                     className={"w-full h-full object-cover group-hover:scale-105 duration-200 transition-transform"}/>
                 <div className={"absolute -bottom-1/2 group-hover:bottom-0 transition-all duration-200 ease-in-out backdrop-blur-md flex flex-col align-middle py-1 ps-1 w-full"}>
-                    <Rating initialRate={5} size={13}/>
+                   <div className={"flex gap-2"}>
+                       <Rating
+                       initialRate={room.ratings.value}
+                       selectAble={false}
+                       size={13}/>
+                       <span>({room.ratings.count})</span>
+                   </div>
                     <p>{room.title}</p>
                 </div>
             </div>

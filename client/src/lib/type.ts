@@ -15,6 +15,10 @@ export interface Room extends BaseModel{
     title:string
     description:string
     images:Image[]
+    ratings:{
+        value:number
+        count:number
+    }
     reviews:string[] | any
     createdAt?:string
     updatedAt?:string
@@ -34,11 +38,11 @@ export interface DetailRoom extends Room{
     }[]
 }
 export interface HomeRoom{
-    rooms:(Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title">)[]
+    rooms:(Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title" | "ratings">)[]
 }
 
 export interface RoomCard{
-    room:Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title">
+    room:Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title" | "ratings">
 }
 
 export interface UpdateRoom{
@@ -186,4 +190,21 @@ export interface BookingInvoice{
     endDate:string
     startDate:string
     dayOfRent:number
+}
+
+export interface AllBooking{
+    id:string
+    room:{
+        id:string
+        roomNumber:string
+    }
+    startDate:string
+    endDate:string
+    customer:{
+        email:string
+    }
+    paymentInfo:{
+        status:string
+        method:string
+    }
 }

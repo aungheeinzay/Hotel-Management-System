@@ -44,12 +44,12 @@ function Page(){
         }
     }>(GET_META_INFO)
     const {data,loading,error} = useQuery<{getAllRooms:{
-        rooms:Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title">[]
+        rooms:Pick<Room,"id" | "images" | "location" | "pricePerNight" | "title" | "ratings">[]
             totalRooms   :number
     }}>(GET_ALL_ROOMS,{
         variables:debounceValue
     })
-    console.log("metaInfo",metaInfo)
+
     return <main className={"layout grid grid-cols-8 gap-4"}>
     <div className={"col-span-8"}>
         <h1 className={"text-2xl font-bold"}>Top Trending Hotel In Myanmar</h1>

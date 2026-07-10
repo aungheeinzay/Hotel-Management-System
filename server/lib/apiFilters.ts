@@ -6,7 +6,7 @@ import * as tty from "node:tty";
 export default class ApiFilters{
     model:any
     constructor(model:any) {
-        this.model = model
+        this.model = model.find()
     }
     search(query:string){
     const searchById={
@@ -42,7 +42,6 @@ export default class ApiFilters{
                     Reflect.deleteProperty(formattedObj,key)
                 }
         }
-        console.log("formattedObj",formattedObj)
         // const toString = JSON.stringify(filter)
         // const refactorStr = toString.replace(/\b(gt|gte|lt|lte)\b/g,(match)=>`$${match}`)
         // console.log("refactor str:",refactorStr)

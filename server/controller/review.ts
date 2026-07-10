@@ -1,6 +1,6 @@
 import errorHandler from "../lib/errorHandler";
 import {Review} from "../model/review";
-import type {ReviewInput} from "../lib/type";
+import type {ReviewInput, UserType} from "../lib/type";
 import {Booking} from "../model/booking";
 import {Room} from "../model/room";
 
@@ -36,4 +36,11 @@ export const canReview = errorHandler(async (roomId:string,userId:string)=>{
         "paymentInfo.status":"paid"
     })
     return !!booking
+})
+
+export const deleteReview =errorHandler(async (reviewId:string,user:UserType)=>{
+    const isAdmin = user.role?.includes("admin")
+    if (!isAdmin)throw new Error("Unauthorized to delete a review")
+    await Review.findByIdAndDelete(reviewId)
+    return true
 })

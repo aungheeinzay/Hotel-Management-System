@@ -1,4 +1,5 @@
 import {allow, and, rule, shield} from "graphql-shield";
+import {getAllBookings} from "../controller/Booking";
 
 const isAuthenticated = rule({cache:"contextual"})(async (parent,arg,ctx)=>{
     return ctx?.user !== null;
@@ -9,12 +10,20 @@ const isAdmin = rule({cache:"contextual"})(async (parent,arg,ctx)=>{
 export const permession = shield({
     Query: {
         currentUser:isAuthenticated,
-        logout:isAuthenticated
+        getDashBoardMetaData:and(isAuthenticated,isAdmin),
+        getBookingById:isAuthenticated,
+        getBookingByUserId:isAuthenticated,
+        getBookingForInvoice:isAuthenticated,
+        logout:isAuthenticated,
+        getAllBookings:allow
     },
     Mutation:{
         login:allow,
         updateProfile:isAuthenticated,
-
+        createBooking:isAuthenticated,
+        createAndUpdateReview:isAuthenticated,
+        stripeCheckoutSession:isAuthenticated,
+        updateBooking:isAuthenticated,
         createNewRoom:and(isAuthenticated,isAdmin),
         deleteRoom:and(isAuthenticated,isAdmin),
         updateRoom:and(isAuthenticated,isAdmin),

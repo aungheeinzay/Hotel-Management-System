@@ -24,7 +24,8 @@ import AdminLayout from "@/components/layout/AdminLayout.tsx";
 import DashboardContainer from "@/components/admin/dashboard/DashboardContainer.tsx";
 import ManageRoom from "@/components/admin/room/ManageRoom.tsx";
 import CreateRoom from  "@/components/admin/room/CreateRoom.tsx"
-import UpdateRoom from "@/components/admin/room/UpdateRoom.tsx";
+import UpdateRoomPage from "@/components/admin/room/UpdateRoom.tsx";
+import BookingDashboardPage from "@/components/admin/bookings/BookingDashboardPage.tsx";
 
 
 
@@ -98,7 +99,11 @@ const router = createBrowserRouter([
             },
             {
                 path:"updateRoom/:roomId",
-                element:<UpdateRoom/>
+                element:<UpdateRoomPage/>
+            },
+            {
+                path:"bookings",
+                element:<BookingDashboardPage/>
             }
         ]
     }

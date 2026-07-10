@@ -6,3 +6,8 @@ export const CREATE_UPDATE_REVIEW =gql(`
             id
         }
     }`)
+
+export const DELETE_REVIEW = gql(`
+    mutation Mutation($reviewId: String!) {
+        deleteReview(reviewId: $reviewId)
+    }`)

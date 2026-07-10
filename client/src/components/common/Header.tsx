@@ -85,10 +85,13 @@ export default function Header(){
                                       <Link to={"/profile"}>Profile</Link>
                                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem>
-                                       Billing
-                                       <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                                   </DropdownMenuItem>
+                                   {
+                                     user.role?.includes("admin") &&  <DropdownMenuItem
+                                       onClick={()=>navigate("/admin/dashboard")}>
+                                           dashboard
+                                           <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                                       </DropdownMenuItem>
+                                   }
                                    <DropdownMenuItem>
                                        Settings
                                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

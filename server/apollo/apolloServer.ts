@@ -18,6 +18,10 @@ import {paymentResolver} from "../graphql/resolvers/payment";
 import {webhookHandler} from "../controller/Payment";
 import {reviewTypeDefs} from "../graphql/typeDefs/review";
 import {reviewResolvers} from "../graphql/resolvers/review";
+import {WebSocketServer} from "ws"
+import {createServer} from "node:http";
+import {useServer} from "graphql-ws/use/ws";
+
 type JWTPayload = {
     id:string
 }
@@ -33,8 +37,33 @@ export const startApolloServer=async (app:Application)=>{
     })
 
 const schemaWithShields =  applyMiddleware(schema,permession)
+
+const httpServer = createServer(app)
+
+    const wsServer = new WebSocketServer({
+        server:httpServer,
+        path:"/graphql"
+    })
+
+    //start apollo subscription server
+const wsCleanUp = useServer({
+    schema:schemaWithShields,
+},wsServer)
+
+
     const apolloServer = new ApolloServer({
         schema:schemaWithShields,
+        plugins:[
+            {
+                async serverWillStart(){
+                    return {
+                        async drainServer(){
+                            await wsCleanUp.dispose()
+                        }
+                    }
+                }
+            }
+        ],
         introspection:true})
     await apolloServer.start();
     // app.use("/graphql", (req, res, next) => {
@@ -89,5 +118,9 @@ const schemaWithShields =  applyMiddleware(schema,permession)
             console.error("❌ Webhook Error:", error.message);
             res.status(400).json({ error: `Webhook Error: ${error.message}` });
         }
+    })
+    const port = process.env.PORT || 8000
+    httpServer.listen(port, () => {
+        console.log("Server is running on port " + port)
     })
 }

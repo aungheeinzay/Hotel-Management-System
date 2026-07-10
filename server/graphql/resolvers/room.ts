@@ -12,6 +12,9 @@ export const roomResolver ={
         createNewRoom:async(_:any, {roomInput}:{roomInput: RoomInputType})=>await createNewRoom(roomInput),
         updateRoom:async(_:any,{roomId,roomInput,removeImage}:{roomId:string,roomInput:Partial<RoomInputType>,removeImage:string[]})=>await updateRoom(roomId,roomInput,removeImage),
         deleteRoom:async(_:any,{roomId}:{roomId:string})=>await deleteRoom(roomId)
+    },
+    Room:{
+        ratings:(parent:any)=>parent.ratings
     }
 }
 

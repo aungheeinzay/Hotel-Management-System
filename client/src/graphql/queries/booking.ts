@@ -102,3 +102,26 @@ export const GET_DASHBOARD_DATA = gql(`
             totalPaidCash
         }
     }`)
+
+export const GET_ALL_BOOKING = gql(`
+    query Query($page: Int, $perPage: Int) {
+        getAllBookings(page: $page, perPage: $perPage) {
+            bookings {
+                id
+                room {
+                    roomNumber
+                }
+                startDate
+                endDate
+                customer {
+                    email
+                }
+                paymentInfo {
+                    status
+                    method
+                }
+            }
+            totalBookings
+        }
+    }
+`)

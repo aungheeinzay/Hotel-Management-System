@@ -57,6 +57,8 @@ roomSchema.virtual("ratings").get(function(){
         count:numberOfReviews
     }
 })
+roomSchema.set('toJSON',{virtuals:true})
+roomSchema.set('toObject',{virtuals:true})
 
 export const Room = model("Room",roomSchema)
 

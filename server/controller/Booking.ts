@@ -2,13 +2,17 @@ import errorHandler from "../lib/errorHandler";
 import { Booking } from "../model/booking";
 import type {BookingInput, UserType} from "../lib/type";
 import {NotFoundError} from "../lib/notFound";
+import ApiFilters from "../lib/apiFilters";
+import {pubsub} from "../apollo/pubsub";
 
 export const createBooking = errorHandler(async (bookingInfo: BookingInput, userId: string) => {
     const newBooking = await Booking.create({
         ...bookingInfo,
         user: userId
     });
-
+    pubsub.publish("NEW_BOOKING",{
+        newBookingNoti:"new booking placed"
+    })
     return newBooking.id;
 });
 
@@ -149,7 +153,7 @@ export const getDashBoardMetaData = errorHandler(async (startDate: string | numb
     let totalBooking = 0;
     const saleMap = new Map();
 
-    // 4. Map ထဲသို့ DB ကရလာသော Data များ ထည့်သွင်းခြင်း
+    // 4.
     salesDataResult.forEach((data: any) => {
         const date = data?._id?.date;
         const sales = data?.totalSales || 0;
@@ -160,7 +164,7 @@ export const getDashBoardMetaData = errorHandler(async (startDate: string | numb
         totalBooking += booking;
     });
 
-    // 5. ကြားထဲတွင် အရောင်းမရှိသော ရက်များကိုပါ 0 ဖြင့် ဖြည့်စွက်ပေးခြင်း
+    // 5 0 ဖြင့် ဖြည့်စွက်ပေးခြင်း
     const finalSaleDate = [];
     const currentDate = new Date(start);
 
@@ -185,4 +189,16 @@ export const getDashBoardMetaData = errorHandler(async (startDate: string | numb
         totalPendingSale: totalPendingAmount,
         totalPaidCash: totalPaidCash
     };
-});
+})
+export const getAllBookings = errorHandler(async (user:UserType,page:number,perPage:number)=>{
+    const isAdmin = user.role?.includes("admin")
+    if (!isAdmin)throw new Error("UnAuthorized to see these")
+    console.log("page",page,perPage)
+    const api = new ApiFilters(Booking).pagination(page,perPage)
+    const totalBookings = await api.count()
+    const bookings = await api.model.populate("room")
+    return {
+        bookings,
+        totalBookings
+    }
+})

@@ -79,7 +79,11 @@ export default function AddRate({reviews,room}:AddRateProps){
                 {
                     reviews.length==0 ? <p>no reviews found</p> :
                         reviews.map(rev=>{
-                          return <Reviews key={rev.id} rating={rev.rating} comment={rev.comment}/>
+                          return <Reviews key={rev.id}
+                                          id={rev.id}
+                                          rating={rev.rating}
+                                          room={room}
+                                          comment={rev.comment}/>
                         })
                 }
             </div>

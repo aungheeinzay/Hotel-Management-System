@@ -10,7 +10,7 @@ export const getAllRooms=errorHandler(async (query:string,filters:RoomFilters,pa
    const apiFilter = new ApiFilters(Room).search(query).filter(filters)
 
     const totalRooms = await apiFilter.count();
-   const rooms = await apiFilter.pagination(page,perPage).model
+   const rooms = await apiFilter.pagination(page,perPage).model.populate("reviews")
     if (rooms.length==0){
         throw new NotFoundError("Rooms are empty")
     }
@@ -81,9 +81,11 @@ export const updateRoom =errorHandler( async (roomId:string,inputRoom:Partial<Ro
 
 
 export const deleteRoom =errorHandler( async (id:string)=>{
-    const deletedRoom = await Room.findByIdAndDelete(id)
-    if (!deletedRoom)throw new NotFoundError("Room not found")
-    return `${deletedRoom.roomNumber} is deleted`;
+    const room = await Room.findById(id)
+    if (!room)throw new NotFoundError("Room not found")
+    room.images.forEach(async (img)=>await deleteImage(img.public_id as string))
+    await room.deleteOne()
+    return true
 })
 
 export const filterMetaInfo = errorHandler(async ()=>{
