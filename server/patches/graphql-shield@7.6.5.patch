@@ -1,7 +1,0 @@
-diff --git a/esm/rules.js b/esm/rules.js
-index 1234567..abcdefg 100644
---- a/esm/rules.js
-+++ b/esm/rules.js
-@@ -1,4 +1,4 @@
--import { isUndefined } from 'util';
-+function isUndefined(value) { return value === undefined; }
