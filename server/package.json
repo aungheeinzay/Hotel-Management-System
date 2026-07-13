@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -e ts,js,json --exec tsx app.ts",
     "db-seeder": "tsx ./seeder/seeder.ts",
-    "build": "pnpm esbuild app.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/app.js",
+    "build": "pnpm esbuild app.ts --bundle --platform=node --format=esm --outfile=dist/app.js --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\"",
     "start": "node ./dist/app.js"
   },
   "keywords": [],
