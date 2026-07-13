@@ -51,32 +51,64 @@
 //}
 
 
+//{
+//  "compilerOptions": {
+//    "rootDir": "./",
+//    "outDir": "./dist",
+//
+//    "module": "NodeNext",
+//    "target": "esnext",
+//    "moduleResolution": "NodeNext",
+//
+//
+//    "paths": {
+//      "*": ["./node_modules/*", "./src/*"]
+//    },
+//
+//    "types": ["node"],
+//    "sourceMap": true,
+//    "declaration": true,
+//    "declarationMap": true,
+//    "strict": true,
+//    "jsx": "react-jsx",
+//    "verbatimModuleSyntax": true,
+//    "isolatedModules": true,
+//    "noUncheckedSideEffectImports": true,
+//    "moduleDetection": "force",
+//    "skipLibCheck": true
+//  },
+//  "include": ["./**/*"],
+//  "exclude": ["node_modules"]
+//}
+
+
 {
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./dist",
-
-    "module": "NodeNext",
+    "module": "esnext",
     "target": "esnext",
-    "moduleResolution": "NodeNext",
-
-
-    "paths": {
-      "*": ["./node_modules/*", "./src/*"]
-    },
-
+    "moduleResolution": "bundler",
     "types": ["node"],
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "strict": true,
+    "declaration": false,
+    "strict": false,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
     "skipLibCheck": true
   },
   "include": ["./**/*"],
   "exclude": ["node_modules"]
 }
+
+
+
+//  "devDependencies": {
+//    "@types/bcrypt": "^6.0.0",
+//    "@types/cookie-parser": "^1.4.10",
+//    "@types/cors": "^2.8.19",
+//    "@types/express": "^5.0.6",
+//    "@types/nodemailer": "^8.0.1",
+//    "@types/ws": "^8.18.1",
+//    "ts-node": "^10.9.2",
+//    "tsconfig-paths": "^4.2.0"
+//  },
