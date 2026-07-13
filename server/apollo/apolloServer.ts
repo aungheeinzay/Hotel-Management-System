@@ -8,7 +8,6 @@ import cors from "cors";
 import {userTypeDefs} from "../graphql/typeDefs/user.js";
 import {userResolvers} from "../graphql/resolvers/user.js";
 import {applyMiddleware} from "graphql-middleware";
-import {permession} from "../lib/permession.js";
 import {decodedToken} from "../lib/jwt.js";
 import {User} from "../model/user.js";
 import {bookingTypeDefs} from "../graphql/typeDefs/booking.js";
