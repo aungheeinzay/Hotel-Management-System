@@ -4,13 +4,16 @@
     // File Layout
     "rootDir": "./",
     "outDir": "./dist",
-
+    "moduleResolution": "Node", /* သို့မဟုတ် NodeNext */
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*", "src/*"]
+    },
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "esnext",
     "target": "esnext",
     "types": ["node"],
-    "moduleResolution": "bundler",
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
