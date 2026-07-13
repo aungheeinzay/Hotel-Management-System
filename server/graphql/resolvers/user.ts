@@ -5,8 +5,8 @@ import {
     updatePassword,
     UpdateUserNameEmail,
     uploadAvator
-} from "../../controller/user";
-import type {UserType} from "../../lib/type";
+} from "../../controller/user.js";
+import type {UserType} from "../../lib/type.js";
 import type {Response} from "express"
 
 export const userResolvers ={

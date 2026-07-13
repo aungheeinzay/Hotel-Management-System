@@ -1,5 +1,5 @@
 import mongoose, {model, Schema} from "mongoose";
-import {type IBooking, PaymentMethods, PaymentStatus} from "../lib/type";
+import {type IBooking, PaymentMethods, PaymentStatus} from "../lib/type.js";
 
 const bookingSchema = new Schema<IBooking>({
     user:{

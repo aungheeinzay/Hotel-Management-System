@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import {gql} from "graphql-tag";
 import mongoose from "mongoose";
 
 export const bookingTypeDefs = gql(`

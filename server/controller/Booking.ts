@@ -1,9 +1,9 @@
-import errorHandler from "../lib/errorHandler";
-import { Booking } from "../model/booking";
-import type {BookingInput, UserType} from "../lib/type";
-import {NotFoundError} from "../lib/notFound";
-import ApiFilters from "../lib/apiFilters";
-import {pubsub} from "../apollo/pubsub";
+import errorHandler from "../lib/errorHandler.js";
+import { Booking } from "../model/booking.js";
+import type {BookingInput, UserType} from "../lib/type.js";
+import {NotFoundError} from "../lib/notFound.js";
+import ApiFilters from "../lib/apiFilters.js";
+import {pubsub} from "../apollo/pubsub.js";
 
 export const createBooking = errorHandler(async (bookingInfo: BookingInput, userId: string) => {
     const newBooking = await Booking.create({

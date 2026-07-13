@@ -1,8 +1,8 @@
 import mongoose, {Document, model, Schema} from "mongoose";
 import bcrypt from "bcrypt"
 import * as crypto from "node:crypto";
-import type {UserType} from "../lib/type";
-import hashResetToken from "../lib/hashResetToken";
+import type {UserType} from "../lib/type.js";
+import hashResetToken from "../lib/hashResetToken.js";
 const userSchema = new Schema<UserType>({
     username:{
         type:String,

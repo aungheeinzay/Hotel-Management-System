@@ -1,4 +1,4 @@
-import {GraphQLError} from "graphql/error";
+import {GraphQLError} from "graphql/error/index.js";
 
 export default (fun:Function)=>(...args:any[])=>{
     return Promise.resolve(fun(...args))

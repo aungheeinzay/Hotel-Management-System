@@ -1,8 +1,8 @@
-import errorHandler from "../lib/errorHandler";
-import {Booking} from "../model/booking";
-import {NotFoundError} from "../lib/notFound";
+import errorHandler from "../lib/errorHandler.js";
+import {Booking} from "../model/booking.js";
+import {NotFoundError} from "../lib/notFound.js";
 import {Stripe} from "stripe"
-import type {BookingPopulateRoom} from "../lib/type";
+import type {BookingPopulateRoom} from "../lib/type.js";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 export const stripeCheckOutSession=errorHandler(async (bookingId:string)=>{
     const booking = await Booking.findById(bookingId).populate("room") as  (BookingPopulateRoom | null)

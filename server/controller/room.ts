@@ -1,9 +1,9 @@
-import type {RoomFilters, RoomInputType, RoomType, ServerResponseRoom} from "../lib/type";
-import {Room} from "../model/room";
-import errorHandler from "../lib/errorHandler";
-import {NotFoundError} from "../lib/notFound";
-import ApiFilters from "../lib/apiFilters";
-import {deleteImage, uploadMultipleImages} from "../lib/cloudinary";
+import type {RoomFilters, RoomInputType, RoomType, ServerResponseRoom} from "../lib/type.js";
+import {Room} from "../model/room.js";
+import errorHandler from "../lib/errorHandler.js";
+import {NotFoundError} from "../lib/notFound.js";
+import ApiFilters from "../lib/apiFilters.js";
+import {deleteImage, uploadMultipleImages} from "../lib/cloudinary.js";
 
 
 export const getAllRooms=errorHandler(async (query:string,filters:RoomFilters,page:string | number , perPage:string | number)=>{

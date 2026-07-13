@@ -1,4 +1,4 @@
-import {GraphQLError} from "graphql/error";
+import {GraphQLError} from "graphql/error/index.js";
 
 export class NotFoundError extends GraphQLError{
     constructor(errMessage:string) {

@@ -1,15 +1,15 @@
 
-import {User} from "../model/user";
-import type {UserType} from "../lib/type";
+import {User} from "../model/user.js";
+import type {UserType} from "../lib/type.js";
 import bcrypt from "bcrypt";
 import type {Response} from "express"
-import {createToken} from "../lib/jwt";
-import errorHandler from "../lib/errorHandler";
-import {NotFoundError} from "../lib/notFound";
-import {deleteImage, uploadSingleImage} from "../lib/cloudinary";
-import {forgetPasswordEmailTemplate} from "../lib/forget-email";
-import {sendEmail} from "../lib/sendEmail";
-import hashResetToken from "../lib/hashResetToken";
+import {createToken} from "../lib/jwt.js";
+import errorHandler from "../lib/errorHandler.js";
+import {NotFoundError} from "../lib/notFound.js";
+import {deleteImage, uploadSingleImage} from "../lib/cloudinary.js";
+import {forgetPasswordEmailTemplate} from "../lib/forget-email.js";
+import {sendEmail} from "../lib/sendEmail.js";
+import hashResetToken from "../lib/hashResetToken.js";
 
 
 export const registerUser =errorHandler( async (input:Pick<UserType, "username" | "email" | "password">)=>{

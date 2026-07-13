@@ -1,4 +1,4 @@
-import {stripeCheckOutSession} from "../../controller/Payment";
+import {stripeCheckOutSession} from "../../controller/Payment.js";
 
 export const paymentResolver={
     Mutation:{

@@ -4,9 +4,9 @@ import {
     getBookingById,
     getBookingByUserId, getBookingForInvoice, getDashBoardMetaData,
     updateBookingPayment
-} from "../../controller/Booking";
-import type {BookingInput, UserType} from "../../lib/type";
-import {pubsub} from "../../apollo/pubsub";
+} from "../../controller/Booking.js";
+import type {BookingInput, UserType} from "../../lib/type.js";
+import {pubsub} from "../../apollo/pubsub.js";
 
 export const bookingResolvers={
     Subscription:{

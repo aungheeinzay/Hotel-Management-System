@@ -1,5 +1,5 @@
-import type {ReviewInput, UserType} from "../../lib/type";
-import {canReview, createAndUpdateReview, deleteReview} from "../../controller/review";
+import type {ReviewInput, UserType} from "../../lib/type.js";
+import {canReview, createAndUpdateReview, deleteReview} from "../../controller/review.js";
 
 
 export const reviewResolvers={

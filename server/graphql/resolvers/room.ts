@@ -1,5 +1,5 @@
-import {createNewRoom, deleteRoom, filterMetaInfo, getAllRooms, getRoomById, updateRoom} from "../../controller/room";
-import type {RoomFilters, RoomInputType, RoomType} from "../../lib/type";
+import {createNewRoom, deleteRoom, filterMetaInfo, getAllRooms, getRoomById, updateRoom} from "../../controller/room.js";
+import type {RoomFilters, RoomInputType, RoomType} from "../../lib/type.js";
 
 export const roomResolver ={
     Query:{

@@ -1,10 +1,10 @@
-import gql from "graphql-tag";
+import {gql} from "graphql-tag";
 
-export const PaymentTypeDefs = gql(`
+export const PaymentTypeDefs = gql`
     type  StripeSession{
         url:String
     }
 extend type Mutation{
 stripeCheckoutSession(bookingId:String!):StripeSession!
 }
-`)
+`

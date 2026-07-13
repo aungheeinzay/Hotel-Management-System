@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type {RoomFilters} from "./type";
+import type {RoomFilters} from "./type.js";
 import {json} from "express";
 import * as tty from "node:tty";
 

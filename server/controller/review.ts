@@ -1,8 +1,8 @@
-import errorHandler from "../lib/errorHandler";
-import {Review} from "../model/review";
-import type {ReviewInput, UserType} from "../lib/type";
-import {Booking} from "../model/booking";
-import {Room} from "../model/room";
+import errorHandler from "../lib/errorHandler.js";
+import {Review} from "../model/review.js";
+import type {ReviewInput, UserType} from "../lib/type.js";
+import {Booking} from "../model/booking.js";
+import {Room} from "../model/room.js";
 
 export const createAndUpdateReview = errorHandler(async (reviewInput: ReviewInput, user: string) => {
     const can = await canReview(reviewInput.room, user)

@@ -1,5 +1,5 @@
 import {allow, and, rule, shield} from "graphql-shield";
-import {getAllBookings} from "../controller/Booking";
+
 
 const isAuthenticated = rule({cache:"contextual"})(async (parent,arg,ctx)=>{
     return ctx?.user !== null;
