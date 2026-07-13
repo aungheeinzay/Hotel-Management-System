@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -e ts,js,json --exec tsx app.ts",
-    "db-seeder": "tsx ./seeder/seeder.ts",
-    "build": "tsc --noEmitOnError false || echo 'Type errors ignored, continuing...'",
-    "start": "node --import ts-node/esm -r tsconfig-paths/register ./dist/app.js"
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "nodemon -e ts,js,json --exec tsx app.ts",
+  "db-seeder": "tsx ./seeder/seeder.ts",
+  "build": "tsc --noEmitOnError false || echo 'Type errors ignored, continuing...'",
+  "start": "pnpm tsx ./dist/app.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
