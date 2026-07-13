@@ -82,16 +82,42 @@
 //}
 
 
+//{
+//  "compilerOptions": {
+//    "rootDir": "./",
+//    "outDir": "./dist",
+//    "module": "esnext",
+//    "target": "esnext",
+//    "moduleResolution": "bundler",
+//    "types": ["node"],
+//    "sourceMap": true,
+//    "declaration": false,
+//    "strict": false,
+//    "jsx": "react-jsx",
+//    "skipLibCheck": true
+//  },
+//  "include": ["./**/*"],
+//  "exclude": ["node_modules"]
+//}
+
 {
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./dist",
     "module": "esnext",
     "target": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
+    "ignoreDeprecations": "6.0",
+
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    },
+
     "types": ["node"],
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
+    "declarationMap": true,
     "strict": false,
     "jsx": "react-jsx",
     "skipLibCheck": true
@@ -99,7 +125,6 @@
   "include": ["./**/*"],
   "exclude": ["node_modules"]
 }
-
 
 
 //  "devDependencies": {
