@@ -40,7 +40,7 @@ export const startApolloServer=async (app:Application)=>{
         resolvers,
     })
 
-const schemaWithShields =  applyMiddleware(schema,permession)
+const schemaWithShields =  applyMiddleware(schema)
 
 const httpServer = createServer(app)
 
