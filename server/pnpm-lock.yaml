@@ -2478,7 +2478,7 @@ snapshots:
       '@graphql-tools/utils': 8.9.0(graphql@16.14.2)
       dataloader: 2.1.0
       graphql: 16.14.2
-      tslib: 2.4.1
+      tslib: 2.8.1
       value-or-promise: 1.0.11
 
   '@graphql-tools/delegate@8.8.1(graphql@16.14.2)':
@@ -2529,7 +2529,7 @@ snapshots:
   '@graphql-tools/utils@8.9.0(graphql@16.14.2)':
     dependencies:
       graphql: 16.14.2
-      tslib: 2.4.1
+      tslib: 2.8.1
 
   '@graphql-typed-document-node/core@3.2.0(graphql@16.14.2)':
     dependencies:
