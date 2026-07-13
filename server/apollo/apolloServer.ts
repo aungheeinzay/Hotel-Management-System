@@ -21,6 +21,10 @@ import {reviewResolvers} from "../graphql/resolvers/review";
 import {WebSocketServer} from "ws"
 import {createServer} from "node:http";
 import {useServer} from "graphql-ws/use/ws";
+import dotenv from "dotenv";
+dotenv.config({
+    path:".env.local"
+})
 
 type JWTPayload = {
     id:string
@@ -48,6 +52,28 @@ const httpServer = createServer(app)
     //start apollo subscription server
 const wsCleanUp = useServer({
     schema:schemaWithShields,
+    context:async(ctx)=>{
+        const connectionParams = ctx.connectionParams as { headers?: { Authorization?: string } } | undefined;
+        const authHeader = connectionParams?.headers?.Authorization
+
+        let token = null;
+        if (authHeader && authHeader.startsWith("Bearer ")) {
+            token = authHeader.split(" ")[1];
+    }
+        let user = null;
+        let userId = null;
+
+        if (token) {
+            try {
+                const decode = await decodedToken(token) as JWTPayload;
+                user = await User.findById(decode.id).select("-password");
+                userId = user?.id;
+            } catch (error) {
+                console.log("WS Token validation failed");
+            }
+        }
+        return { user, userId };
+    }
 },wsServer)
 
 
@@ -77,10 +103,9 @@ const wsCleanUp = useServer({
     //     }
     //     next();
     // });
-    console.log(process.env.CLIENT_URL!)
     app.use("/graphql",cors({
         credentials:true,
-        origin:true
+        origin:[process.env.CLIENT_URL!]
     }),json({limit:"50mb"}), expressMiddleware(apolloServer,{
         context:async({req,res}:{req:Request,res:Response})=>{
             let user = null;

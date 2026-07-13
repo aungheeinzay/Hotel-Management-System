@@ -3,12 +3,20 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import {OperationTypeNode} from "graphql/language";
 
-const uri =import.meta.env.VITE_SERVER_URL+"/graphql"
+const uri =import.meta.env.VITE_SERVER_URL
 const wsUri = import.meta.env.VITE_GRAPHQL_WS
 
 const wsLink = new GraphQLWsLink(
     createClient({
-        url:wsUri
+        url:wsUri,
+        connectionParams: () => {
+            const token = localStorage.getItem("token");
+            return {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : "",
+                }
+            } as { headers: { Authorization: string } };
+        }
     })
 )
 
