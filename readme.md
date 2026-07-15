@@ -54,6 +54,7 @@ Unlike simple applications, a Hotel Booking System comes with heavy data-consist
     * **Stripe SDK:** Facilitates end-to-end PCI-compliant financial transactions.
     * **Cloudinary SDK:** Handles high-speed multi-image optimization and background cloud CDN media transformations.
     * **Nodemailer:** Drives immediate template-bound notification receipts and credential recovery workflows.
+    * **mongoose:** for database querying , i used aggregate pipeline for best performance optimization.
 
 ---
 
@@ -102,3 +103,7 @@ export default function IsAuthenticated(Component: React.ComponentType<any>, rol
         return <Component {...props}/>;
     };
 }
+
+```
+
+### sorry for not using graphql-shield .it is conflict with type on deployment.
