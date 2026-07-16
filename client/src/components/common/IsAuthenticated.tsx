@@ -10,11 +10,12 @@ export default function IsAuthenticated(Component: React.ComponentType<any>,role
         const isauthenticated = useReactiveVar(isAuthenticatedVar);
         const isGlobalLoading = useReactiveVar(loadingVar);
         const userInfo = useReactiveVar(userInfoVar)
-
+    let i =1
         useEffect(() => {
-
+            console.log("isAuthenticated ",i++,isauthenticated)
             if (isGlobalLoading)return
             if (!isauthenticated) {
+
                 navigate("/auth/login");
             }
             const hasRole = userInfo?.role?.some((rol=>rol==role))

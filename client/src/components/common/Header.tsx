@@ -26,24 +26,16 @@ export default function Header(){
     const {data,loading} = useQuery<{
         currentUser:User
     } | null>(CURRENT_USER
-        // {onCompleted:(data)=>{
-        //     userInfoVar(data?.currentUser);
-        //     isAuthenticatedVar(true);
-        //     loadingVar(false)
-        // },
-        // onError:()=>{
-        //     userInfoVar(null)
-        //     isAuthenticatedVar(false)
-        //     loadingVar(false)
-        // }
+
     )
     useEffect(() => {
-        loadingVar(loading);
+        loadingVar(loading)
         if (!loading) {
             if (data?.currentUser) {
-                userInfoVar(data.currentUser);
+                userInfoVar(data.currentUser)
                 isAuthenticatedVar(true);
             } else {
+
                 userInfoVar(null);
                 isAuthenticatedVar(false);
             }

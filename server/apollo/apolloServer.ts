@@ -58,6 +58,7 @@ const wsCleanUp = useServer({
         let token = null;
         if (authHeader && authHeader.startsWith("Bearer ")) {
             token = authHeader.split(" ")[1];
+
     }
         let user = null;
         let userId = null;
@@ -91,17 +92,7 @@ const wsCleanUp = useServer({
         ],
         introspection:true})
     await apolloServer.start();
-    // app.use("/graphql", (req, res, next) => {
-    //     res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-    //     res.header("Access-Control-Allow-Credentials", "true");
-    //     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    //     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    //
-    //     if (req.method === "OPTIONS") {
-    //         return res.sendStatus(200); // Preflight request ကို handle လုပ်
-    //     }
-    //     next();
-    // });
+
     app.use("/graphql",cors({
         credentials:true,
         origin:[process.env.CLIENT_URL!]
@@ -110,7 +101,7 @@ const wsCleanUp = useServer({
             let user = null;
             const token = req.cookies?.token
             let userId=null
-
+            console.log("token",token)
             if (token){
                 try {
                 const decode =await decodedToken(token) as JWTPayload

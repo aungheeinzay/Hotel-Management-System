@@ -33,7 +33,7 @@ function Page(){
             }
         };
     }, [query, capacity, location, type,page,perPage]); // prevent infinate loop because of obj reference is always changes thus i use memo
-
+    console.log(paramsValue)
     const [debounceValue] = useDebounce(paramsValue)
     console.log("debounceValue",debounceValue)
     const {data:metaInfo,loading:metaInfoLoading} =useQuery<{

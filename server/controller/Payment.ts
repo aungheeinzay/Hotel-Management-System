@@ -43,8 +43,8 @@ export const webhookHandler=errorHandler(async (signature:string,rawBody:string)
         const bookingId = session.client_reference_id
         const paymentInfo ={
             id:session.payment_intent,
-            status:session.payment_status,
-            method:session.payment_method_types[0],
+            status:"paid",
+            method:"card",
         }
         await  Booking.findByIdAndUpdate(bookingId,({paymentInfo}))
         return true

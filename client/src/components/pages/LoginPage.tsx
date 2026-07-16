@@ -49,8 +49,7 @@ export default function LoginPage() {
 
     async function onSubmit(data:LoginSchemaForm) {
 
-        console.log("bro clicking me")
-        console.log("data",data)
+
         try {
          const  {data:loginData} = await login({
                 variables:{

@@ -23,6 +23,7 @@ export default function PayBy(){
                 bookingId,
                 bookingInput: {
                     paymentInfo:{
+                        status:"paid",
                         method:"cash"
                     }
                 }

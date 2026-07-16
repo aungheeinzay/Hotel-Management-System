@@ -7,8 +7,6 @@ export default (fun:Function)=>(...args:any[])=>{
             console.log("error",err.name)
             console.log("message",err.message)
             if (err instanceof GraphQLError){
-
-                console.log("instance of graphql error")
                 throw err
             }
             if(err.name==="CastError"){
