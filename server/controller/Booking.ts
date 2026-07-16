@@ -32,7 +32,7 @@ export const updateBookingPayment=errorHandler(async (bookingId:string,bookingIn
     if(!booking){
         throw new NotFoundError('Booking not found')
     }
-    if (user._id.toString()!==booking.user.toString()){
+    if (!user.role?.includes("admin") && user._id.toString()!==booking.user.toString()){
         throw new Error("unAuthorized to update booking payment")
 
     }
